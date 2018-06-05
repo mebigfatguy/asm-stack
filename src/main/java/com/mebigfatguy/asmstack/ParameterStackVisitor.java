@@ -9,6 +9,8 @@ import org.objectweb.asm.TypePath;
 
 public class ParameterStackVisitor extends MethodVisitor {
 
+    private ParameterStack stack;
+
     public ParameterStackVisitor(final int api) {
         this(api, null);
     }
@@ -54,6 +56,7 @@ public class ParameterStackVisitor extends MethodVisitor {
 
     @Override
     public void visitCode() {
+        stack = new ParameterStack();
         super.visitCode();
     }
 
@@ -109,7 +112,6 @@ public class ParameterStackVisitor extends MethodVisitor {
 
     @Override
     public void visitLabel(Label label) {
-        // TODO Auto-generated method stub
         super.visitLabel(label);
     }
 
@@ -177,5 +179,6 @@ public class ParameterStackVisitor extends MethodVisitor {
     @Override
     public void visitEnd() {
         super.visitEnd();
+        stack = null;
     }
 }
