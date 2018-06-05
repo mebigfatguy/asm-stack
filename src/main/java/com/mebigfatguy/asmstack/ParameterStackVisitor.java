@@ -5,6 +5,7 @@ import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.TypePath;
 
 public class ParameterStackVisitor extends MethodVisitor {
@@ -17,6 +18,9 @@ public class ParameterStackVisitor extends MethodVisitor {
 
     public ParameterStackVisitor(int api, MethodVisitor methodVisitor) {
         super(api, methodVisitor);
+    }
+
+    public void visitAfterInstruction(int opcode) {
     }
 
     @Override
@@ -68,46 +72,55 @@ public class ParameterStackVisitor extends MethodVisitor {
     @Override
     public void visitInsn(int opcode) {
         super.visitInsn(opcode);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitIntInsn(int opcode, int operand) {
         super.visitIntInsn(opcode, operand);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitVarInsn(int opcode, int var) {
         super.visitVarInsn(opcode, var);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitTypeInsn(int opcode, String type) {
         super.visitTypeInsn(opcode, type);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitFieldInsn(int opcode, String owner, String name, String descriptor) {
         super.visitFieldInsn(opcode, owner, name, descriptor);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor) {
         super.visitMethodInsn(opcode, owner, name, descriptor);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
         super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
         super.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
+        visitAfterInstruction(Opcodes.INVOKEDYNAMIC);
     }
 
     @Override
     public void visitJumpInsn(int opcode, Label label) {
         super.visitJumpInsn(opcode, label);
+        visitAfterInstruction(opcode);
     }
 
     @Override
@@ -118,26 +131,31 @@ public class ParameterStackVisitor extends MethodVisitor {
     @Override
     public void visitLdcInsn(Object value) {
         super.visitLdcInsn(value);
+        visitAfterInstruction(Opcodes.LDC));
     }
 
     @Override
     public void visitIincInsn(int var, int increment) {
         super.visitIincInsn(var, increment);
+        visitAfterInstruction(Opcodes.IINC);
     }
 
     @Override
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
         super.visitTableSwitchInsn(min, max, dflt, labels);
+        visitAfterInstruction(Opcodes.TABLESWITCH);
     }
 
     @Override
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
         super.visitLookupSwitchInsn(dflt, keys, labels);
+        visitAfterInstruction(Opcodes.LOOKUPSWITCH);
     }
 
     @Override
     public void visitMultiANewArrayInsn(String descriptor, int numDimensions) {
         super.visitMultiANewArrayInsn(descriptor, numDimensions);
+        visitAfterInstruction(Opcodes.MULTIANEWARRAY);
     }
 
     @Override
