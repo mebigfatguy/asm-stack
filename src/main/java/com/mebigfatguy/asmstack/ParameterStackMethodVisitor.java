@@ -8,15 +8,15 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.TypePath;
 
-public class ParameterStackVisitor extends MethodVisitor {
+public class ParameterStackMethodVisitor extends MethodVisitor {
 
     private ParameterStack stack;
 
-    public ParameterStackVisitor(final int api) {
+    public ParameterStackMethodVisitor(final int api) {
         this(api, null);
     }
 
-    public ParameterStackVisitor(int api, MethodVisitor methodVisitor) {
+    public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor) {
         super(api, methodVisitor);
     }
 
@@ -131,7 +131,7 @@ public class ParameterStackVisitor extends MethodVisitor {
     @Override
     public void visitLdcInsn(Object value) {
         super.visitLdcInsn(value);
-        visitAfterInstruction(Opcodes.LDC));
+        visitAfterInstruction(Opcodes.LDC);
     }
 
     @Override
