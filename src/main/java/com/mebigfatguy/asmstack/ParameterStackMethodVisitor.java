@@ -38,9 +38,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         super(api, methodVisitor);
     }
 
-    public void visitAfterInstruction(int opcode) {
-    }
-
     @Override
     public void visitParameter(String name, int access) {
         super.visitParameter(name, access);
@@ -89,26 +86,398 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitInsn(int opcode) {
+        switch (opcode) {
+            case Opcodes.NOP:
+            break;
+
+            case Opcodes.ACONST_NULL:
+            break;
+
+            case Opcodes.ICONST_M1:
+            break;
+
+            case Opcodes.ICONST_0:
+            break;
+
+            case Opcodes.ICONST_1:
+            break;
+
+            case Opcodes.ICONST_2:
+            break;
+
+            case Opcodes.ICONST_3:
+            break;
+
+            case Opcodes.ICONST_4:
+            break;
+
+            case Opcodes.ICONST_5:
+            break;
+
+            case Opcodes.LCONST_0:
+            break;
+
+            case Opcodes.LCONST_1:
+            break;
+
+            case Opcodes.FCONST_0:
+            break;
+
+            case Opcodes.FCONST_1:
+            break;
+
+            case Opcodes.FCONST_2:
+            break;
+
+            case Opcodes.DCONST_0:
+            break;
+
+            case Opcodes.DCONST_1:
+            break;
+
+            case Opcodes.IALOAD:
+            break;
+
+            case Opcodes.LALOAD:
+            break;
+
+            case Opcodes.FALOAD:
+            break;
+
+            case Opcodes.DALOAD:
+            break;
+
+            case Opcodes.AALOAD:
+            break;
+
+            case Opcodes.BALOAD:
+            break;
+
+            case Opcodes.CALOAD:
+            break;
+
+            case Opcodes.SALOAD:
+            break;
+
+            case Opcodes.IASTORE:
+            break;
+
+            case Opcodes.LASTORE:
+            break;
+
+            case Opcodes.FASTORE:
+            break;
+
+            case Opcodes.DASTORE:
+            break;
+
+            case Opcodes.AASTORE:
+            break;
+
+            case Opcodes.BASTORE:
+            break;
+
+            case Opcodes.CASTORE:
+            break;
+
+            case Opcodes.SASTORE:
+            break;
+
+            case Opcodes.POP:
+            break;
+
+            case Opcodes.POP2:
+            break;
+
+            case Opcodes.DUP:
+            break;
+
+            case Opcodes.DUP_X1:
+            break;
+
+            case Opcodes.DUP_X2:
+            break;
+
+            case Opcodes.DUP2:
+            break;
+
+            case Opcodes.DUP2_X1:
+            break;
+
+            case Opcodes.DUP2_X2:
+            break;
+
+            case Opcodes.SWAP:
+            break;
+
+            case Opcodes.IADD:
+            break;
+
+            case Opcodes.LADD:
+            break;
+
+            case Opcodes.FADD:
+            break;
+
+            case Opcodes.DADD:
+            break;
+
+            case Opcodes.ISUB:
+            break;
+
+            case Opcodes.LSUB:
+            break;
+
+            case Opcodes.FSUB:
+            break;
+
+            case Opcodes.DSUB:
+            break;
+
+            case Opcodes.IMUL:
+            break;
+
+            case Opcodes.LMUL:
+            break;
+
+            case Opcodes.FMUL:
+            break;
+
+            case Opcodes.DMUL:
+            break;
+
+            case Opcodes.IDIV:
+            break;
+
+            case Opcodes.LDIV:
+            break;
+
+            case Opcodes.FDIV:
+            break;
+
+            case Opcodes.DDIV:
+            break;
+
+            case Opcodes.IREM:
+            break;
+
+            case Opcodes.LREM:
+            break;
+
+            case Opcodes.FREM:
+            break;
+
+            case Opcodes.DREM:
+            break;
+
+            case Opcodes.INEG:
+            break;
+
+            case Opcodes.LNEG:
+            break;
+
+            case Opcodes.FNEG:
+            break;
+
+            case Opcodes.DNEG:
+            break;
+
+            case Opcodes.ISHL:
+            break;
+
+            case Opcodes.LSHL:
+            break;
+
+            case Opcodes.ISHR:
+            break;
+
+            case Opcodes.LSHR:
+            break;
+
+            case Opcodes.IUSHR:
+            break;
+
+            case Opcodes.LUSHR:
+            break;
+
+            case Opcodes.IAND:
+            break;
+
+            case Opcodes.LAND:
+            break;
+
+            case Opcodes.IOR:
+            break;
+
+            case Opcodes.LOR:
+            break;
+
+            case Opcodes.IXOR:
+            break;
+
+            case Opcodes.LXOR:
+            break;
+
+            case Opcodes.I2L:
+            break;
+
+            case Opcodes.I2F:
+            break;
+
+            case Opcodes.I2D:
+            break;
+
+            case Opcodes.L2I:
+            break;
+
+            case Opcodes.L2F:
+            break;
+
+            case Opcodes.L2D:
+            break;
+
+            case Opcodes.F2I:
+            break;
+
+            case Opcodes.F2L:
+            break;
+
+            case Opcodes.F2D:
+            break;
+
+            case Opcodes.D2I:
+            break;
+
+            case Opcodes.D2L:
+            break;
+
+            case Opcodes.D2F:
+            break;
+
+            case Opcodes.I2B:
+            break;
+
+            case Opcodes.I2C:
+            break;
+
+            case Opcodes.I2S:
+            break;
+
+            case Opcodes.LCMP:
+            break;
+
+            case Opcodes.FCMPL:
+            break;
+
+            case Opcodes.FCMPG:
+            break;
+
+            case Opcodes.DCMPL:
+            break;
+
+            case Opcodes.DCMPG:
+            break;
+
+            case Opcodes.IRETURN:
+            break;
+
+            case Opcodes.LRETURN:
+            break;
+
+            case Opcodes.FRETURN:
+            break;
+
+            case Opcodes.DRETURN:
+            break;
+
+            case Opcodes.ARETURN:
+            break;
+
+            case Opcodes.RETURN:
+            break;
+
+            case Opcodes.ARRAYLENGTH:
+            break;
+
+            case Opcodes.ATHROW:
+            break;
+
+            case Opcodes.MONITORENTER:
+            break;
+
+            case Opcodes.MONITOREXIT:
+            break;
+        }
         super.visitInsn(opcode);
-        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitIntInsn(int opcode, int operand) {
+        switch (opcode) {
+            case Opcodes.BIPUSH:
+            break;
+
+            case Opcodes.SIPUSH:
+            break;
+
+            case Opcodes.NEWARRAY:
+            break;
+        }
         super.visitIntInsn(opcode, operand);
-        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitVarInsn(int opcode, int var) {
+        switch (opcode) {
+            case Opcodes.ILOAD:
+            break;
+
+            case Opcodes.LLOAD:
+            break;
+
+            case Opcodes.FLOAD:
+            break;
+
+            case Opcodes.DLOAD:
+            break;
+
+            case Opcodes.ALOAD:
+            break;
+
+            case Opcodes.ISTORE:
+            break;
+
+            case Opcodes.LSTORE:
+            break;
+
+            case Opcodes.FSTORE:
+            break;
+
+            case Opcodes.DSTORE:
+            break;
+
+            case Opcodes.ASTORE:
+            break;
+        }
         super.visitVarInsn(opcode, var);
-        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitTypeInsn(int opcode, String type) {
+        switch (opcode) {
+            case Opcodes.NEW:
+            break;
+
+            case Opcodes.ANEWARRAY:
+            break;
+
+            case Opcodes.CHECKCAST:
+            break;
+
+            case Opcodes.INSTANCEOF:
+            break;
+        }
         super.visitTypeInsn(opcode, type);
-        visitAfterInstruction(opcode);
     }
 
     @Override
@@ -132,31 +501,107 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
 
         super.visitFieldInsn(opcode, owner, name, descriptor);
-        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor) {
+        switch (opcode) {
+            case Opcodes.INVOKEVIRTUAL:
+            break;
+
+            case Opcodes.INVOKESPECIAL:
+            break;
+
+            case Opcodes.INVOKESTATIC:
+            break;
+
+            case Opcodes.INVOKEINTERFACE:
+            break;
+        }
         super.visitMethodInsn(opcode, owner, name, descriptor);
-        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+        switch (opcode) {
+            case Opcodes.INVOKEVIRTUAL:
+            break;
+
+            case Opcodes.INVOKESPECIAL:
+            break;
+
+            case Opcodes.INVOKESTATIC:
+            break;
+
+            case Opcodes.INVOKEINTERFACE:
+            break;
+        }
         super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
-        visitAfterInstruction(opcode);
     }
 
     @Override
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
         super.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
-        visitAfterInstruction(Opcodes.INVOKEDYNAMIC);
     }
 
     @Override
     public void visitJumpInsn(int opcode, Label label) {
+        switch (opcode) {
+            case Opcodes.IFEQ:
+            break;
+
+            case Opcodes.IFNE:
+            break;
+
+            case Opcodes.IFLT:
+            break;
+
+            case Opcodes.IFGE:
+            break;
+
+            case Opcodes.IFGT:
+            break;
+
+            case Opcodes.IFLE:
+            break;
+
+            case Opcodes.IF_ICMPEQ:
+            break;
+
+            case Opcodes.IF_ICMPNE:
+            break;
+
+            case Opcodes.IF_ICMPLT:
+            break;
+
+            case Opcodes.IF_ICMPGE:
+            break;
+
+            case Opcodes.IF_ICMPGT:
+            break;
+
+            case Opcodes.IF_ICMPLE:
+            break;
+
+            case Opcodes.IF_ACMPEQ:
+            break;
+
+            case Opcodes.IF_ACMPNE:
+            break;
+
+            case Opcodes.GOTO:
+            break;
+
+            case Opcodes.JSR:
+            break;
+
+            case Opcodes.IFNULL:
+            break;
+
+            case Opcodes.IFNONNULL:
+            break;
+        }
         super.visitJumpInsn(opcode, label);
-        visitAfterInstruction(opcode);
     }
 
     @Override
@@ -168,31 +613,26 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitLdcInsn(Object value) {
         stack.push(new Parameter(value));
         super.visitLdcInsn(value);
-        visitAfterInstruction(Opcodes.LDC);
     }
 
     @Override
     public void visitIincInsn(int var, int increment) {
         super.visitIincInsn(var, increment);
-        visitAfterInstruction(Opcodes.IINC);
     }
 
     @Override
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
         super.visitTableSwitchInsn(min, max, dflt, labels);
-        visitAfterInstruction(Opcodes.TABLESWITCH);
     }
 
     @Override
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
         super.visitLookupSwitchInsn(dflt, keys, labels);
-        visitAfterInstruction(Opcodes.LOOKUPSWITCH);
     }
 
     @Override
     public void visitMultiANewArrayInsn(String descriptor, int numDimensions) {
         super.visitMultiANewArrayInsn(descriptor, numDimensions);
-        visitAfterInstruction(Opcodes.MULTIANEWARRAY);
     }
 
     @Override
