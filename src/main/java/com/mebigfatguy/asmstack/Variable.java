@@ -17,25 +17,38 @@
  */
 package com.mebigfatguy.asmstack;
 
-import org.junit.Test;
-import org.objectweb.asm.Opcodes;
+public class Variable {
+    private int slot;
+    private String name;
+    private String signature;
+    private int access;
 
-public class ParameterStackMethodVisitorTest {
+    public Variable(int variableSlot, String variableSignature) {
+        slot = variableSlot;
+        signature = variableSignature;
+    }
 
-    @Test
-    public void testSimpleReturn() {
+    public int getSlot() {
+        return slot;
+    }
 
-        ParameterStackMethodVisitor v = new ParameterStackMethodVisitor(Opcodes.ASM6, Opcodes.ACC_PUBLIC, "test", "(ILjava/lang/String;)Ljava/lang/Object;",
-                "(ILjava/lang/String;)Ljava/lang/Object;", new String[0]);
+    public void setName(String variableName) {
+        name = variableName;
+    }
 
-        v.visitCode();
+    public String getName() {
+        return name;
+    }
 
-        v.visitParameter("myInt", 0);
-        v.visitParameter("myString", 0);
+    public String getSignature() {
+        return signature;
+    }
 
-        v.visitVarInsn(Opcodes.ALOAD, 1);
-        v.visitInsn(Opcodes.ARETURN);
+    public void setAccess(int variableAccess) {
+        access = variableAccess;
+    }
 
-        v.visitEnd();
+    public int getAccess() {
+        return access;
     }
 }

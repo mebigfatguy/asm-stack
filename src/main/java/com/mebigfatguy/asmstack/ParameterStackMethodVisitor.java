@@ -17,6 +17,8 @@
  */
 package com.mebigfatguy.asmstack;
 
+import java.util.Map;
+
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.Handle;
@@ -28,6 +30,13 @@ import org.objectweb.asm.TypePath;
 public class ParameterStackMethodVisitor extends MethodVisitor {
 
     private ParameterStack stack;
+    private Map<Integer, Variable> variables;
+    private int methodAccess;
+    private String methodName;
+    private String methodDescriptor;
+    private String methodSignature;
+    private String[] methodExceptions;
+    private int nextParmSlot;
 
     public ParameterStackMethodVisitor(final int api, int access, String name, String descriptor, String signature, String[] exceptions) {
         this(api, null, access, name, descriptor, signature, exceptions);
@@ -36,10 +45,26 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor, int access, String name, String descriptor, String signature,
             String[] exceptions) {
         super(api, methodVisitor);
+        methodAccess = access;
+        methodName = name;
+        methodDescriptor = descriptor;
+        methodSignature = signature;
+        methodExceptions = exceptions;
+
+        nextParmSlot = (access & Opcodes.ACC_STATIC) != 0 ? 0 : 1;
+        buildParameterVariables(signature);
+        nextParmSlot = (access & Opcodes.ACC_STATIC) != 0 ? 0 : 1;
     }
 
     @Override
     public void visitParameter(String name, int access) {
+        Variable v = variables.get(nextParmSlot);
+        v.setName(name);
+        v.setAccess(access);
+        String sig = v.getSignature();
+        if (sig.startsWith("L") || sig.startsWith("[")) {
+            nextParmSlot += "J".equals(sig) || "D".equals(sig) ? 2 : 1;
+        }
         super.visitParameter(name, access);
     }
 
@@ -675,5 +700,9 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitEnd() {
         super.visitEnd();
         stack = null;
+    }
+
+    private void buildParameterVariables(String signature) {
+
     }
 }
