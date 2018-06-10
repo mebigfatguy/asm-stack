@@ -30,10 +30,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     private ParameterStack stack;
 
     public ParameterStackMethodVisitor(final int api, int access, String name, String descriptor, String signature, String[] exceptions) {
-        this(api, null);
+        this(api, null, access, name, descriptor, signature, exceptions);
     }
 
-    public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor) {
+    public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor, int access, String name, String descriptor, String signature,
+            String[] exceptions) {
         super(api, methodVisitor);
     }
 
