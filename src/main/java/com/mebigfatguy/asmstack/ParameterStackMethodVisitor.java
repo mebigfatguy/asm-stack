@@ -95,6 +95,24 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitFieldInsn(int opcode, String owner, String name, String descriptor) {
+        switch (opcode) {
+            case Opcodes.GETSTATIC:
+                stack.pop();
+                stack.push(new Parameter(new Field(owner, name, descriptor)));
+            break;
+
+            case Opcodes.PUTSTATIC:
+            break;
+
+            case Opcodes.GETFIELD:
+                stack.pop();
+                stack.push(new Parameter(new Field(owner, name, descriptor)));
+            break;
+
+            case Opcodes.PUTFIELD:
+            break;
+        }
+
         super.visitFieldInsn(opcode, owner, name, descriptor);
         visitAfterInstruction(opcode);
     }
@@ -130,6 +148,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitLdcInsn(Object value) {
+        stack.push(new Parameter(value));
         super.visitLdcInsn(value);
         visitAfterInstruction(Opcodes.LDC);
     }

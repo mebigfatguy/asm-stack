@@ -7,4 +7,12 @@ public class ParameterStack {
 
     private List<Parameter> stack = new ArrayList<>();
 
+    void push(Parameter p) {
+        stack.add(p);
+    }
+
+    Parameter pop() {
+        return stack.remove(stack.size() - 1);
+    }
+
 }
