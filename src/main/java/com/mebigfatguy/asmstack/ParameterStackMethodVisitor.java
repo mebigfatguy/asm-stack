@@ -119,45 +119,60 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ICONST_M1:
+                stack.push(new Parameter(Integer.valueOf(-1)));
             break;
 
             case Opcodes.ICONST_0:
+                stack.push(new Parameter(Integer.valueOf(0)));
             break;
 
             case Opcodes.ICONST_1:
+                stack.push(new Parameter(Integer.valueOf(1)));
             break;
 
             case Opcodes.ICONST_2:
+                stack.push(new Parameter(Integer.valueOf(2)));
             break;
 
             case Opcodes.ICONST_3:
+                stack.push(new Parameter(Integer.valueOf(3)));
             break;
 
             case Opcodes.ICONST_4:
+                stack.push(new Parameter(Integer.valueOf(4)));
             break;
 
             case Opcodes.ICONST_5:
+                stack.push(new Parameter(Integer.valueOf(5)));
             break;
 
             case Opcodes.LCONST_0:
+                stack.push(new Parameter(Long.valueOf(0)));
             break;
 
             case Opcodes.LCONST_1:
+                stack.push(new Parameter(Long.valueOf(1)));
             break;
 
             case Opcodes.FCONST_0:
+                stack.push(new Parameter(Float.valueOf(0)));
             break;
 
             case Opcodes.FCONST_1:
+                stack.push(new Parameter(Float.valueOf(1)));
             break;
 
             case Opcodes.FCONST_2:
+                stack.push(new Parameter(Float.valueOf(2)));
+
             break;
 
             case Opcodes.DCONST_0:
+                stack.push(new Parameter(Double.valueOf(0)));
             break;
 
             case Opcodes.DCONST_1:
+                stack.push(new Parameter(Double.valueOf(1)));
             break;
 
             case Opcodes.IALOAD:
@@ -209,12 +224,15 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.POP:
+                stack.pop();
             break;
 
             case Opcodes.POP2:
             break;
 
             case Opcodes.DUP:
+                stack.push(stack.peek(0));
+
             break;
 
             case Opcodes.DUP_X1:
@@ -404,18 +422,23 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.IRETURN:
+                stack.pop();
             break;
 
             case Opcodes.LRETURN:
+                stack.pop();
             break;
 
             case Opcodes.FRETURN:
+                stack.pop();
             break;
 
             case Opcodes.DRETURN:
+                stack.pop();
             break;
 
             case Opcodes.ARETURN:
+                stack.pop();
             break;
 
             case Opcodes.RETURN:
@@ -425,12 +448,15 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ATHROW:
+                stack.pop();
             break;
 
             case Opcodes.MONITORENTER:
+                stack.pop();
             break;
 
             case Opcodes.MONITOREXIT:
+                stack.pop();
             break;
         }
         super.visitInsn(opcode);
@@ -440,9 +466,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitIntInsn(int opcode, int operand) {
         switch (opcode) {
             case Opcodes.BIPUSH:
+                stack.push(new Parameter(Integer.valueOf(operand)));
             break;
 
             case Opcodes.SIPUSH:
+                stack.push(new Parameter(Integer.valueOf(operand)));
             break;
 
             case Opcodes.NEWARRAY:
@@ -497,6 +525,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.CHECKCAST:
+                stack.pop();
             break;
 
             case Opcodes.INSTANCEOF:
@@ -573,45 +602,73 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitJumpInsn(int opcode, Label label) {
         switch (opcode) {
             case Opcodes.IFEQ:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IFNE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IFLT:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IFGE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IFGT:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IFLE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ICMPEQ:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ICMPNE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ICMPLT:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ICMPGE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ICMPGT:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ICMPLE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ACMPEQ:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.IF_ACMPNE:
+                stack.pop();
+                stack.pop();
             break;
 
             case Opcodes.GOTO:
@@ -621,9 +678,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.IFNULL:
+                stack.pop();
             break;
 
             case Opcodes.IFNONNULL:
+                stack.pop();
             break;
         }
         super.visitJumpInsn(opcode, label);

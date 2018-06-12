@@ -32,4 +32,8 @@ public class ParameterStack {
         return stack.remove(stack.size() - 1);
     }
 
+    Parameter peek(int offset) {
+        return stack.get(stack.size() - offset - 1);
+    }
+
 }
