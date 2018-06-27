@@ -23,9 +23,10 @@ public class Variable {
     private String signature;
     private int access;
 
-    public Variable(int variableSlot, String variableSignature) {
+    public Variable(int variableSlot, String variableName, int variableAccess) {
         slot = variableSlot;
-        signature = variableSignature;
+        name = variableName;
+        access = variableAccess;
     }
 
     public int getSlot() {

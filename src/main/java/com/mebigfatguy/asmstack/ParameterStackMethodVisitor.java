@@ -17,6 +17,7 @@
  */
 package com.mebigfatguy.asmstack;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.objectweb.asm.AnnotationVisitor;
@@ -38,13 +39,17 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     private String[] methodExceptions;
     private int nextParmSlot;
 
-    public ParameterStackMethodVisitor(final int api, int access, String name, String descriptor, String signature, String[] exceptions) {
-        this(api, null, access, name, descriptor, signature, exceptions);
+    public ParameterStackMethodVisitor(final int api) {
+        this(api, null);
     }
 
-    public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor, int access, String name, String descriptor, String signature,
-            String[] exceptions) {
+    public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor) {
         super(api, methodVisitor);
+
+        variables = new HashMap<>();
+    }
+
+    public void visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         methodAccess = access;
         methodName = name;
         methodDescriptor = descriptor;
@@ -58,9 +63,9 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitParameter(String name, int access) {
-        Variable v = variables.get(nextParmSlot);
-        v.setName(name);
-        v.setAccess(access);
+        Variable v = new Variable(nextParmSlot, name, access);
+        variables.put(nextParmSlot, v);
+
         String sig = v.getSignature();
         if (sig.startsWith("L") || sig.startsWith("[")) {
             nextParmSlot += "J".equals(sig) || "D".equals(sig) ? 2 : 1;

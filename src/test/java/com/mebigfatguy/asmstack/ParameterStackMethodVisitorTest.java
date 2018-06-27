@@ -17,25 +17,53 @@
  */
 package com.mebigfatguy.asmstack;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.junit.Test;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class ParameterStackMethodVisitorTest {
 
     @Test
-    public void testSimpleReturn() {
+    public void testTest1() throws IOException {
 
-        ParameterStackMethodVisitor v = new ParameterStackMethodVisitor(Opcodes.ASM6, Opcodes.ACC_PUBLIC, "test", "(ILjava/lang/String;)Ljava/lang/Object;",
-                "(ILjava/lang/String;)Ljava/lang/Object;", new String[0]);
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
 
-        v.visitCode();
+            ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+            };
 
-        v.visitParameter("myInt", 0);
-        v.visitParameter("myString", 0);
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test1", psmv), ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+        }
 
-        v.visitVarInsn(Opcodes.ALOAD, 1);
-        v.visitInsn(Opcodes.ARETURN);
+    }
 
-        v.visitEnd();
+    public Object test1(int i, String s) {
+        return s;
+    }
+
+    class MethodPickingClassVisitor extends ClassVisitor {
+        private String targetMethodName;
+        private ParameterStackMethodVisitor methodVisitor;
+
+        public MethodPickingClassVisitor(String methodName, ParameterStackMethodVisitor mv) {
+            super(Opcodes.ASM6);
+            targetMethodName = methodName;
+            methodVisitor = mv;
+        }
+
+        @Override
+        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+            if (name.equals(targetMethodName)) {
+                methodVisitor.visitMethod(access, name, descriptor, signature, exceptions);
+                return methodVisitor;
+            }
+
+            return super.visitMethod(access, name, descriptor, signature, exceptions);
+        }
     }
 }
