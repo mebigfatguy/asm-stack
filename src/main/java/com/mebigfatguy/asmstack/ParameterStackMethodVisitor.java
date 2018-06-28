@@ -505,6 +505,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ALOAD:
+                // TODO get type from variables
+                stack.push(new Parameter(null));
             break;
 
             case Opcodes.ISTORE:
