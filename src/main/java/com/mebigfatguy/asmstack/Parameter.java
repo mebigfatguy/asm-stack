@@ -19,19 +19,27 @@ package com.mebigfatguy.asmstack;
 
 public class Parameter {
 
+    private String typeSignature;
     private int variableSlot;
     private Field field;
     private Object constant;
 
-    public Parameter() {
+    public Parameter(String signature) {
+        typeSignature = signature;
     }
 
-    Parameter(Field fld) {
+    Parameter(String signature, Field fld) {
+        typeSignature = signature;
         field = fld;
     }
 
-    Parameter(Object cons) {
+    Parameter(String signature, Object cons) {
+        typeSignature = signature;
         constant = cons;
+    }
+
+    public String getTypeSignature() {
+        return typeSignature;
     }
 
     public int getVariableSlot() {

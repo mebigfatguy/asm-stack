@@ -121,63 +121,64 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ACONST_NULL:
+                stack.push(new Parameter(null, (Object) null));
             break;
 
             case Opcodes.ICONST_M1:
-                stack.push(new Parameter(Integer.valueOf(-1)));
+                stack.push(new Parameter("I", Integer.valueOf(-1)));
             break;
 
             case Opcodes.ICONST_0:
-                stack.push(new Parameter(Integer.valueOf(0)));
+                stack.push(new Parameter("I", Integer.valueOf(0)));
             break;
 
             case Opcodes.ICONST_1:
-                stack.push(new Parameter(Integer.valueOf(1)));
+                stack.push(new Parameter("I", Integer.valueOf(1)));
             break;
 
             case Opcodes.ICONST_2:
-                stack.push(new Parameter(Integer.valueOf(2)));
+                stack.push(new Parameter("I", Integer.valueOf(2)));
             break;
 
             case Opcodes.ICONST_3:
-                stack.push(new Parameter(Integer.valueOf(3)));
+                stack.push(new Parameter("I", Integer.valueOf(3)));
             break;
 
             case Opcodes.ICONST_4:
-                stack.push(new Parameter(Integer.valueOf(4)));
+                stack.push(new Parameter("I", Integer.valueOf(4)));
             break;
 
             case Opcodes.ICONST_5:
-                stack.push(new Parameter(Integer.valueOf(5)));
+                stack.push(new Parameter("I", Integer.valueOf(5)));
             break;
 
             case Opcodes.LCONST_0:
-                stack.push(new Parameter(Long.valueOf(0)));
+                stack.push(new Parameter("J", Long.valueOf(0)));
             break;
 
             case Opcodes.LCONST_1:
-                stack.push(new Parameter(Long.valueOf(1)));
+                stack.push(new Parameter("J", Long.valueOf(1)));
             break;
 
             case Opcodes.FCONST_0:
-                stack.push(new Parameter(Float.valueOf(0)));
+                stack.push(new Parameter("F", Float.valueOf(0)));
             break;
 
             case Opcodes.FCONST_1:
-                stack.push(new Parameter(Float.valueOf(1)));
+                stack.push(new Parameter("F", Float.valueOf(1)));
             break;
 
             case Opcodes.FCONST_2:
-                stack.push(new Parameter(Float.valueOf(2)));
+                stack.push(new Parameter("F", Float.valueOf(2)));
 
             break;
 
             case Opcodes.DCONST_0:
-                stack.push(new Parameter(Double.valueOf(0)));
+                stack.push(new Parameter("D", Double.valueOf(0)));
             break;
 
             case Opcodes.DCONST_1:
-                stack.push(new Parameter(Double.valueOf(1)));
+                stack.push(new Parameter("D", Double.valueOf(1)));
             break;
 
             case Opcodes.IALOAD:
@@ -256,6 +257,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.SWAP:
+                Parameter p1 = stack.pop();
+                Parameter p2 = stack.pop();
+                stack.push(p1);
+                stack.push(p2);
             break;
 
             case Opcodes.IADD:
@@ -471,11 +476,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitIntInsn(int opcode, int operand) {
         switch (opcode) {
             case Opcodes.BIPUSH:
-                stack.push(new Parameter(Integer.valueOf(operand)));
+                stack.push(new Parameter("B", Integer.valueOf(operand)));
             break;
 
             case Opcodes.SIPUSH:
-                stack.push(new Parameter(Integer.valueOf(operand)));
+                stack.push(new Parameter("S", Integer.valueOf(operand)));
             break;
 
             case Opcodes.NEWARRAY:
@@ -544,7 +549,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         switch (opcode) {
             case Opcodes.GETSTATIC:
                 stack.pop();
-                stack.push(new Parameter(new Field(owner, name, descriptor)));
+                stack.push(new Parameter(descriptor, new Field(owner, name, descriptor)));
             break;
 
             case Opcodes.PUTSTATIC:
@@ -552,7 +557,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
             case Opcodes.GETFIELD:
                 stack.pop();
-                stack.push(new Parameter(new Field(owner, name, descriptor)));
+                stack.push(new Parameter(descriptor, new Field(owner, name, descriptor)));
             break;
 
             case Opcodes.PUTFIELD:
@@ -700,7 +705,21 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitLdcInsn(Object value) {
-        stack.push(new Parameter(value));
+        String type;
+        if (value instanceof String) {
+            type = "Ljava/lang/String;";
+        } else if (value instanceof Integer) {
+            type = "I";
+        } else if (value instanceof Long) {
+            type = "J";
+        } else if (value instanceof Float) {
+            type = "F";
+        } else if (value instanceof Double) {
+            type = "D";
+        } else {
+            type = null;
+        }
+        stack.push(new Parameter(type, value));
         super.visitLdcInsn(value);
     }
 
