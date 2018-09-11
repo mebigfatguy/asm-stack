@@ -72,46 +72,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
         super.visitParameter(name, access);
     }
-
-    @Override
-    public AnnotationVisitor visitAnnotationDefault() {
-        return super.visitAnnotationDefault();
-    }
-
-    @Override
-    public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-        return super.visitAnnotation(descriptor, visible);
-    }
-
-    @Override
-    public AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath, String descriptor, boolean visible) {
-        return super.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
-    }
-
-    @Override
-    public void visitAnnotableParameterCount(int parameterCount, boolean visible) {
-        super.visitAnnotableParameterCount(parameterCount, visible);
-    }
-
-    @Override
-    public AnnotationVisitor visitParameterAnnotation(int parameter, String descriptor, boolean visible) {
-        return super.visitParameterAnnotation(parameter, descriptor, visible);
-    }
-
-    @Override
-    public void visitAttribute(Attribute attribute) {
-        super.visitAttribute(attribute);
-    }
-
     @Override
     public void visitCode() {
         stack = new ParameterStack();
         super.visitCode();
-    }
-
-    @Override
-    public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
-        super.visitFrame(type, nLocal, local, nStack, stack);
     }
 
     @Override
