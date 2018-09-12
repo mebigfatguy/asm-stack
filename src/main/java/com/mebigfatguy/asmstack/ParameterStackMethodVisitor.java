@@ -691,7 +691,12 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitIincInsn(int var, int increment) {
-        super.visitIincInsn(var, increment);
+
+        Parameter parameter = stack.peek(0);
+        Integer val = parameter.getValue();
+        if (val != null) {
+            parameter.setValue(val + 1);
+        }
     }
 
     @Override

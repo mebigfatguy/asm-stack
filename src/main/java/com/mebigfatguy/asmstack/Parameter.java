@@ -22,7 +22,7 @@ public class Parameter {
     private String typeSignature;
     private int variableSlot;
     private Field field;
-    private Object constant;
+    private Object value;
 
     public Parameter(String signature) {
         typeSignature = signature;
@@ -35,7 +35,7 @@ public class Parameter {
 
     Parameter(String signature, Object cons) {
         typeSignature = signature;
-        constant = cons;
+        value = cons;
     }
 
     public String getTypeSignature() {
@@ -48,5 +48,13 @@ public class Parameter {
 
     public Field getField() {
         return field;
+    }
+
+    public <T> T getValue() {
+        return (T) value;
+    }
+
+    public void setValue(Object o) {
+        value = o;
     }
 }
