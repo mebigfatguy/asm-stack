@@ -18,6 +18,7 @@
 package com.mebigfatguy.asmstack;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.objectweb.asm.AnnotationVisitor;
@@ -535,6 +536,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor) {
+
         switch (opcode) {
             case Opcodes.INVOKEVIRTUAL:
             break;
@@ -549,6 +551,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
         }
         super.visitMethodInsn(opcode, owner, name, descriptor);
+
+        List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
+        stack.pop(parms.size());
+
     }
 
     @Override
@@ -567,6 +573,9 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
         }
         super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+
+        List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
+        stack.pop(parms.size());
     }
 
     @Override
