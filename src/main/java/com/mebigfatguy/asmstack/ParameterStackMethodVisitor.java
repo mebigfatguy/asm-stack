@@ -711,11 +711,15 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     @Override
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
         super.visitTableSwitchInsn(min, max, dflt, labels);
+
+        m_stack.pop();
     }
 
     @Override
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
         super.visitLookupSwitchInsn(dflt, keys, labels);
+
+        m_stack.pop();
     }
 
     @Override
