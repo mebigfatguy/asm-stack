@@ -81,6 +81,9 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitInsn(int opcode) {
+
+        super.visitInsn(opcode);
+
         switch (opcode) {
             case Opcodes.NOP:
             break;
@@ -434,11 +437,13 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
                 stack.pop();
             break;
         }
-        super.visitInsn(opcode);
     }
 
     @Override
     public void visitIntInsn(int opcode, int operand) {
+
+        super.visitIntInsn(opcode, operand);
+
         switch (opcode) {
             case Opcodes.BIPUSH:
                 stack.push(new Parameter("B", Integer.valueOf(operand)));
@@ -451,11 +456,13 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.NEWARRAY:
             break;
         }
-        super.visitIntInsn(opcode, operand);
     }
 
     @Override
     public void visitVarInsn(int opcode, int var) {
+
+        super.visitVarInsn(opcode, var);
+
         switch (opcode) {
             case Opcodes.ILOAD:
             break;
@@ -489,11 +496,13 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.ASTORE:
             break;
         }
-        super.visitVarInsn(opcode, var);
     }
 
     @Override
     public void visitTypeInsn(int opcode, String type) {
+
+        super.visitTypeInsn(opcode, type);
+
         switch (opcode) {
             case Opcodes.NEW:
             break;
@@ -508,11 +517,13 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.INSTANCEOF:
             break;
         }
-        super.visitTypeInsn(opcode, type);
     }
 
     @Override
     public void visitFieldInsn(int opcode, String owner, String name, String descriptor) {
+
+        super.visitFieldInsn(opcode, owner, name, descriptor);
+
         switch (opcode) {
             case Opcodes.GETSTATIC:
                 stack.pop();
@@ -531,11 +542,12 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
         }
 
-        super.visitFieldInsn(opcode, owner, name, descriptor);
     }
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor) {
+
+        super.visitMethodInsn(opcode, owner, name, descriptor);
 
         switch (opcode) {
             case Opcodes.INVOKEVIRTUAL:
@@ -550,7 +562,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.INVOKEINTERFACE:
             break;
         }
-        super.visitMethodInsn(opcode, owner, name, descriptor);
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
         stack.pop(parms.size());
@@ -559,6 +570,9 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
+
+        super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
+
         switch (opcode) {
             case Opcodes.INVOKEVIRTUAL:
             break;
@@ -572,7 +586,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.INVOKEINTERFACE:
             break;
         }
-        super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
         stack.pop(parms.size());
@@ -585,6 +598,9 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitJumpInsn(int opcode, Label label) {
+
+        super.visitJumpInsn(opcode, label);
+
         switch (opcode) {
             case Opcodes.IFEQ:
                 stack.pop();
@@ -680,6 +696,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitLdcInsn(Object value) {
+
+        super.visitLdcInsn(value);
         String type;
         if (value instanceof String) {
             type = "Ljava/lang/String;";
@@ -700,6 +718,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitIincInsn(int var, int increment) {
+
+        super.visitIincInsn(increment);
 
         Parameter parameter = stack.peek(0);
         Integer val = parameter.getValue();
