@@ -529,6 +529,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.PUTSTATIC:
+                stack.pop();
             break;
 
             case Opcodes.GETFIELD:
@@ -537,6 +538,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.PUTFIELD:
+                stack.pop(2);
             break;
         }
 
