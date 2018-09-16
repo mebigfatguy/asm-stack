@@ -58,8 +58,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         methodExceptions = exceptions;
 
         nextParmSlot = (access & Opcodes.ACC_STATIC) != 0 ? 0 : 1;
-        buildParameterVariables(signature);
-        nextParmSlot = (access & Opcodes.ACC_STATIC) != 0 ? 0 : 1;
     }
 
     @Override
@@ -719,7 +717,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     @Override
     public void visitIincInsn(int var, int increment) {
 
-        super.visitIincInsn(increment);
+        super.visitIincInsn(var, increment);
 
         Parameter parameter = stack.peek(0);
         Integer val = parameter.getValue();
@@ -732,14 +730,14 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label... labels) {
         super.visitTableSwitchInsn(min, max, dflt, labels);
 
-        m_stack.pop();
+        stack.pop();
     }
 
     @Override
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
         super.visitLookupSwitchInsn(dflt, keys, labels);
 
-        m_stack.pop();
+        stack.pop();
     }
 
     @Override
@@ -787,9 +785,5 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitEnd() {
         super.visitEnd();
         stack = null;
-    }
-
-    private void buildParameterVariables(String signature) {
-
     }
 }
