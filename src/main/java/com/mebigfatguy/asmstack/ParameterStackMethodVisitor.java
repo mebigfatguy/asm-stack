@@ -148,51 +148,75 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.IALOAD:
+                stack.pop(2);
+                stack.push(new Parameter("[I", null));
             break;
 
             case Opcodes.LALOAD:
+                stack.pop(2);
+                stack.push(new Parameter("[J", null));
             break;
 
             case Opcodes.FALOAD:
+                stack.pop(2);
+                stack.push(new Parameter("[F", null));
             break;
 
             case Opcodes.DALOAD:
+                stack.pop(2);
+                stack.push(new Parameter("[D", null));
             break;
 
             case Opcodes.AALOAD:
+                stack.pop(2);
+                stack.push(new Parameter("[Ljava/lang/Object;", null));
             break;
 
             case Opcodes.BALOAD:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("[B", null));
+                break;
 
             case Opcodes.CALOAD:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("[C", null));
+                break;
 
             case Opcodes.SALOAD:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("[S", null));
+                break;
 
             case Opcodes.IASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.LASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.FASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.DASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.AASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.BASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.CASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.SASTORE:
+                stack.pop(3);
             break;
 
             case Opcodes.POP:
@@ -200,6 +224,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.POP2:
+                stack.pop(2);
             break;
 
             case Opcodes.DUP:
