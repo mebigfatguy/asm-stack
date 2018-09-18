@@ -255,63 +255,103 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.IADD:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LADD:
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.FADD:
+                stack.pop(2);
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DADD:
+                stack.pop(2);
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.ISUB:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LSUB:
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.FSUB:
+                stack.pop(2);
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DSUB:
+                stack.pop(2);
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.IMUL:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LMUL:
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.FMUL:
+                stack.pop(2);
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DMUL:
+                stack.pop(2);
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.IDIV:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LDIV:
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.FDIV:
+                stack.pop(2);
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DDIV:
+                stack.pop(2);
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.IREM:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LREM:
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.FREM:
+                stack.pop(2);
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DREM:
+                stack.pop(2);
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.INEG:
