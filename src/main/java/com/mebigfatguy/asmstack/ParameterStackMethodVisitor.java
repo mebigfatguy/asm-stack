@@ -355,15 +355,23 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.INEG:
+                stack.pop();
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LNEG:
+                stack.pop();
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.FNEG:
+                stack.pop();
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DNEG:
+                stack.pop();
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.ISHL:
