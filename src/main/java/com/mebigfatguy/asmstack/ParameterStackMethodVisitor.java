@@ -375,42 +375,68 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ISHL:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.LSHL:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.ISHR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.LSHR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.IUSHR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.LUSHR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.IAND:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.LAND:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.IOR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.LOR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.IXOR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.LXOR:
-            break;
+                stack.pop(2);
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.I2L:
+                stack.pop();
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.I2F:
