@@ -440,45 +440,72 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.I2F:
-            break;
+                stack.pop();
+                stack.push(new Parameter("F", null));
+                break;
 
             case Opcodes.I2D:
+                stack.pop();
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.L2I:
-            break;
+                stack.pop();
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.L2F:
+                stack.pop();
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.L2D:
-            break;
+                stack.pop();
+                stack.push(new Parameter("D", null));
+                break;
 
             case Opcodes.F2I:
+                stack.pop();
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.F2L:
+                stack.pop();
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.F2D:
-            break;
+                stack.pop();
+                stack.push(new Parameter("D", null));
+                break;
 
             case Opcodes.D2I:
+                stack.pop();
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.D2L:
+                stack.pop();
+                stack.push(new Parameter("J", null));
             break;
 
             case Opcodes.D2F:
-            break;
+                stack.pop();
+                stack.push(new Parameter("F", null));
+                break;
 
             case Opcodes.I2B:
+                stack.pop();
+                stack.push(new Parameter("B", null));
             break;
 
             case Opcodes.I2C:
-            break;
+                stack.pop();
+                stack.push(new Parameter("C", null));
+                break;
 
             case Opcodes.I2S:
+                stack.push(new Parameter("S", null));
             break;
 
             case Opcodes.LCMP:
