@@ -509,18 +509,28 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.LCMP:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.FCMPL:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.FCMPG:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.DCMPL:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.DCMPG:
+                stack.pop(2);
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.IRETURN:
