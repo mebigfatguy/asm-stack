@@ -557,6 +557,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ARRAYLENGTH:
+                stack.pop();
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.ATHROW:
