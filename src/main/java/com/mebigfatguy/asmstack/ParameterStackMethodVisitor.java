@@ -651,6 +651,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.INSTANCEOF:
+                stack.pop();
+                stack.push(new Parameter("Z", null));
             break;
         }
     }
