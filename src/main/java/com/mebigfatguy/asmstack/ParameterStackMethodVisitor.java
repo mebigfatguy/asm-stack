@@ -641,9 +641,12 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         switch (opcode) {
             case Opcodes.NEW:
+                stack.push(new Parameter(type, null));
             break;
 
             case Opcodes.ANEWARRAY:
+                stack.pop();
+                stack.push(new Parameter(type, null));
             break;
 
             case Opcodes.CHECKCAST:
