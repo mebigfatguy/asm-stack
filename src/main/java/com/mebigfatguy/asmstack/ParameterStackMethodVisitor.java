@@ -707,7 +707,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
-        stack.pop(parms.size());
+        stack.pop(parms.size() + (opcode == INVOKESTATIC) ? 0 : 1);
 
     }
 
@@ -731,7 +731,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
-        stack.pop(parms.size());
+        stack.pop(parms.size() + (opcode == INVOKESTATIC) ? 0 : 1);
     }
 
     @Override
@@ -822,6 +822,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.JSR:
+                // probably need some opaque type
+                stack.push(new Parameter("I", null));
             break;
 
             case Opcodes.IFNULL:
@@ -832,7 +834,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
                 stack.pop();
             break;
         }
-        super.visitJumpInsn(opcode, label);
     }
 
     @Override
