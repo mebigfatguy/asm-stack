@@ -601,15 +601,19 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         switch (opcode) {
             case Opcodes.ILOAD:
-            break;
+                stack.push(new Parameter("I", null));
+                break;
 
             case Opcodes.LLOAD:
-            break;
+                stack.push(new Parameter("J", null));
+                break;
 
             case Opcodes.FLOAD:
+                stack.push(new Parameter("F", null));
             break;
 
             case Opcodes.DLOAD:
+                stack.push(new Parameter("D", null));
             break;
 
             case Opcodes.ALOAD:
@@ -618,18 +622,23 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ISTORE:
+                Parameter p = stack.pop();
             break;
 
             case Opcodes.LSTORE:
+                Parameter p = stack.pop();
             break;
 
             case Opcodes.FSTORE:
+                Parameter p = stack.pop();
             break;
 
             case Opcodes.DSTORE:
+                Parameter p = stack.pop();
             break;
 
             case Opcodes.ASTORE:
+                Parameter p = stack.pop();
             break;
         }
     }
