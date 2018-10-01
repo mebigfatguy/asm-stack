@@ -617,7 +617,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.ALOAD:
-                // TODO get type from variables
                 Variable v = variables.get(var);
                 if (v != null) {
                     stack.push(new Parameter(v.getSignature(), null));
