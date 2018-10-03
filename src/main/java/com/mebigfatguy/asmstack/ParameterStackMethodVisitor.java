@@ -233,6 +233,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.DUP_X1:
+                Parameter p1 = stack.pop();
+                Parameter p2 = stack.pop();
+                stack.push(p1);
+                stack.push(p2);
+                stack.push(p1);
             break;
 
             case Opcodes.DUP_X2:
