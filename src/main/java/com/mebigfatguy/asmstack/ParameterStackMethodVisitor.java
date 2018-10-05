@@ -232,18 +232,35 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
             break;
 
-            case Opcodes.DUP_X1:
+            case Opcodes.DUP_X1: {
                 Parameter p1 = stack.pop();
                 Parameter p2 = stack.pop();
                 stack.push(p1);
                 stack.push(p2);
                 stack.push(p1);
+            }
             break;
 
-            case Opcodes.DUP_X2:
+            case Opcodes.DUP_X2: {
+                Parameter p1 = stack.pop();
+                Parameter p2 = stack.pop();
+                String signature = p2.getTypeSignature();
+                if ("J".equals(signature) || "D".equals(signature)) {
+                    stack.push(p1);
+                    stack.push(p2);
+                    stack.push(p1);
+                } else {
+                    Parameter p3 = stack.pop();
+                    stack.push(p1);
+                    stack.push(p3);
+                    stack.push(p2);
+                    stack.push(p1);
+
+                }
+            }
             break;
 
-            case Opcodes.DUP2:
+            case Opcodes.DUP2: {
                 Parameter p = stack.peek(0);
                 String signature = p.getTypeSignature();
                 if ("J".equals(signature) || "D".equals(signature)) {
@@ -252,6 +269,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
                     stack.push(stack.peek(1));
                     stack.push(stack.peek(1));
                 }
+            }
             break;
 
             case Opcodes.DUP2_X1:
