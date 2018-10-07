@@ -291,7 +291,35 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             }
             break;
 
-            case Opcodes.DUP2_X2:
+            case Opcodes.DUP2_X2: {
+                Parameter p1 = stack.pop();
+                Parameter p2 = stack.pop();
+                Parameter p3 = stack.pop();
+                String signature = p1.getTypeSignature();
+                if ("J".equals(signature) || "D".equals(signature)) {
+                    stack.push(p1);
+                    stack.push(p3);
+                    stack.push(p2);
+                    stack.push(p1);
+                } else {
+                    signature = p3.getTypeSignature();
+                    if ("J".equals(signature) || "D".equals(signature)) {
+                        stack.push(p2);
+                        stack.push(p1);
+                        stack.push(p3);
+                        stack.push(p2);
+                        stack.push(p1);
+                    } else {
+                        Parameter p4 = stack.pop();
+                        stack.push(p2);
+                        stack.push(p1);
+                        stack.push(p4);
+                        stack.push(p3);
+                        stack.push(p2);
+                        stack.push(p1);
+                    }
+                }
+            }
             break;
 
             case Opcodes.SWAP:
@@ -672,24 +700,29 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
                 }
             break;
 
-            case Opcodes.ISTORE:
+            case Opcodes.ISTORE: {
                 Parameter p = stack.pop();
+            }
             break;
 
-            case Opcodes.LSTORE:
+            case Opcodes.LSTORE: {
                 Parameter p = stack.pop();
+            }
             break;
 
-            case Opcodes.FSTORE:
+            case Opcodes.FSTORE: {
                 Parameter p = stack.pop();
+            }
             break;
 
-            case Opcodes.DSTORE:
+            case Opcodes.DSTORE: {
                 Parameter p = stack.pop();
+            }
             break;
 
-            case Opcodes.ASTORE:
+            case Opcodes.ASTORE: {
                 Parameter p = stack.pop();
+            }
             break;
         }
     }
@@ -767,7 +800,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
-        stack.pop(parms.size() + (opcode == INVOKESTATIC) ? 0 : 1);
+        stack.pop(parms.size() + ((opcode == Opcodes.INVOKESTATIC) ? 0 : 1));
 
     }
 
@@ -791,7 +824,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
-        stack.pop(parms.size() + (opcode == INVOKESTATIC) ? 0 : 1);
+        stack.pop(parms.size() + ((opcode == Opcodes.INVOKESTATIC) ? 0 : 1));
     }
 
     @Override
