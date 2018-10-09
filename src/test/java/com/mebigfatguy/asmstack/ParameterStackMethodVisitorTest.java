@@ -19,6 +19,9 @@ package com.mebigfatguy.asmstack;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Deque;
+import java.util.List;
+import java.util.Queue;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,24 +35,31 @@ public class ParameterStackMethodVisitorTest {
     @Test
     public void testTest1() throws IOException {
 
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
+
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
-
-            ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
-                public void visitEnd() {
-                    Assert.assertTrue(getStack().isEmpty());
-                }
-            };
-
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test1", psmv), ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
-
-
         }
 
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test2", psmv), ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+        }
     }
 
     public Object test1(int i, String s) {
         return s;
+    }
+
+    public void test2(List<String> in, Deque<String> out) {
+        for (String s : in) {
+            out.addLast(s);
+        }
     }
 
     class MethodPickingClassVisitor extends ClassVisitor {
