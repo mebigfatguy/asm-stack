@@ -20,6 +20,7 @@ package com.mebigfatguy.asmstack;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -35,9 +36,14 @@ public class ParameterStackMethodVisitorTest {
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
 
             ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+                public void visitEnd() {
+                    Assert.assertTrue(getStack().isEmpty());
+                }
             };
 
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test1", psmv), ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+
+
         }
 
     }

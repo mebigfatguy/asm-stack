@@ -28,19 +28,23 @@ public class ParameterStack {
         stack.add(p);
     }
 
-    Parameter pop() {
+    public Parameter pop() {
         return stack.remove(stack.size() - 1);
     }
 
-    void pop(int numItems) {
+    public void pop(int numItems) {
 
         while (numItems-- > 0) {
             stack.remove(stack.size() - 1);
         }
     }
 
-    Parameter peek(int offset) {
+    public Parameter peek(int offset) {
         return stack.get(stack.size() - offset - 1);
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
     }
 
 }

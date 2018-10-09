@@ -50,6 +50,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         variables = new HashMap<>();
     }
 
+    public ParameterStack getStack() {
+        return stack;
+    }
+
     public void visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         methodAccess = access;
         methodName = name;
