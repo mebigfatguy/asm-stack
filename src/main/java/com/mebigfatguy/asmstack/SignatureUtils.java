@@ -50,4 +50,9 @@ public class SignatureUtils {
 
         return parmSignatures;
     }
+
+    static String getReturnSignature(String descriptor) {
+        int start = descriptor.indexOf(')') + 1;
+        return descriptor.substring(start);
+    }
 }

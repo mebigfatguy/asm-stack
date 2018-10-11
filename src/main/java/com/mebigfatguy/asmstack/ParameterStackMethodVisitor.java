@@ -807,7 +807,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
         stack.pop(parms.size() + ((opcode == Opcodes.INVOKESTATIC) ? 0 : 1));
-
+        String returnSig = SignatureUtils.getReturnSignature(descriptor);
+        if (!"V".equals(returnSig)) {
+            stack.push(new Parameter(returnSig, null));
+        }
     }
 
     @Override
@@ -831,6 +834,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
         stack.pop(parms.size() + ((opcode == Opcodes.INVOKESTATIC) ? 0 : 1));
+        String returnSig = SignatureUtils.getReturnSignature(descriptor);
+        if (!"V".equals(returnSig)) {
+            stack.push(new Parameter(returnSig, null));
+        }
     }
 
     @Override
