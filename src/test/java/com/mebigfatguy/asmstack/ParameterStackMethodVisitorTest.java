@@ -50,6 +50,12 @@ public class ParameterStackMethodVisitorTest {
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test2", psmv), ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
         }
+
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test3", psmv), ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+        }
+
     }
 
     public Object test1(int i, String s) {
@@ -60,6 +66,14 @@ public class ParameterStackMethodVisitorTest {
         for (String s : in) {
             out.addLast(s);
         }
+    }
+
+    public int test3(int i, int j) {
+        return sm(i) | sm(j);
+    }
+
+    public static int sm(int i) {
+        return i & 5;
     }
 
     class MethodPickingClassVisitor extends ClassVisitor {
