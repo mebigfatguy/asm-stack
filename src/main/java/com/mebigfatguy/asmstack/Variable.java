@@ -17,24 +17,25 @@
  */
 package com.mebigfatguy.asmstack;
 
+import org.objectweb.asm.Label;
+
 public class Variable {
     private int slot;
     private String name;
     private String signature;
-    private int access;
+    private Label start;
+    private Label end;
 
-    public Variable(int variableSlot, String variableName, int variableAccess) {
+    public Variable(int variableSlot, String variableName, String variableSignature, Label variableStart, Label variableEnd) {
         slot = variableSlot;
         name = variableName;
-        access = variableAccess;
+        signature = variableSignature;
+        start = variableStart;
+        end = variableEnd;
     }
 
     public int getSlot() {
         return slot;
-    }
-
-    public void setName(String variableName) {
-        name = variableName;
     }
 
     public String getName() {
@@ -45,11 +46,7 @@ public class Variable {
         return signature;
     }
 
-    public void setAccess(int variableAccess) {
-        access = variableAccess;
-    }
+    public Label getStart() { return start; }
 
-    public int getAccess() {
-        return access;
-    }
+    public Label getEnd() { return end; }
 }

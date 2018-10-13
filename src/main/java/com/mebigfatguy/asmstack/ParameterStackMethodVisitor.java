@@ -18,6 +18,7 @@
 package com.mebigfatguy.asmstack;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -66,7 +67,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitParameter(String name, int access) {
-        Variable v = new Variable(nextParmSlot, name, access);
+        Variable v = new Variable(nextParmSlot, name, null, null, null);
         variables.put(nextParmSlot, v);
 
         String sig = v.getSignature();
@@ -1021,6 +1022,8 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     @Override
     public void visitLocalVariable(String name, String descriptor, String signature, Label start, Label end, int index) {
         super.visitLocalVariable(name, descriptor, signature, start, end, index);
+
+        variables.put(index, new Variable(index, name, descriptor, start, end));
     }
 
     @Override
@@ -1032,6 +1035,14 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     @Override
     public void visitLineNumber(int line, Label start) {
         super.visitLineNumber(line, start);
+
+        Iterator<Variable> it = variables.values().iterator();
+        while (it.hasNext()) {
+            Variable v = it.next();
+            if (v.getEnd().equals(start)) {
+                it.remove();
+            }
+        }
     }
 
     @Override
