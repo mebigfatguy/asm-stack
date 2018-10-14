@@ -857,31 +857,25 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         switch (opcode) {
             case Opcodes.IFEQ:
                 stack.pop();
-                stack.pop();
             break;
 
             case Opcodes.IFNE:
-                stack.pop();
                 stack.pop();
             break;
 
             case Opcodes.IFLT:
                 stack.pop();
-                stack.pop();
             break;
 
             case Opcodes.IFGE:
-                stack.pop();
                 stack.pop();
             break;
 
             case Opcodes.IFGT:
                 stack.pop();
-                stack.pop();
             break;
 
             case Opcodes.IFLE:
-                stack.pop();
                 stack.pop();
             break;
 
