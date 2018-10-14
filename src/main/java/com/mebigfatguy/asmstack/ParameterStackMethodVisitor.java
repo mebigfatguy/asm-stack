@@ -788,6 +788,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     }
 
     @Override
+    @Deprecated
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor) {
 
         super.visitMethodInsn(opcode, owner, name, descriptor);
