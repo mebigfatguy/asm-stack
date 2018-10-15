@@ -45,17 +45,34 @@ public class ParameterStackMethodVisitorTest {
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test1", psmv), ClassReader.SKIP_FRAMES);
         }
+    }
+
+    public void testTest2() throws IOException {
+
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
 
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test2", psmv), ClassReader.SKIP_FRAMES);
         }
+   }
+
+    public void testTest3() throws IOException {
+
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
 
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test3", psmv), ClassReader.SKIP_FRAMES);
         }
-
     }
 
     public Object test1(int i, String s) {
