@@ -47,6 +47,7 @@ public class ParameterStackMethodVisitorTest {
         }
     }
 
+    @Test
     public void testTest2() throws IOException {
 
         ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
@@ -59,8 +60,9 @@ public class ParameterStackMethodVisitorTest {
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test2", psmv), ClassReader.SKIP_FRAMES);
         }
-   }
+    }
 
+    @Test
     public void testTest3() throws IOException {
 
         ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
