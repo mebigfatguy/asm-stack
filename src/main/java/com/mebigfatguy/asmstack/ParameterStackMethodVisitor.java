@@ -750,7 +750,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.CHECKCAST:
-                stack.pop();
             break;
 
             case Opcodes.INSTANCEOF:
