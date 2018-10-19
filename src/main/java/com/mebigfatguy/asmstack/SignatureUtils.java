@@ -23,8 +23,8 @@ import java.util.List;
 
 public class SignatureUtils {
 
-    private static final String ARRAY_PREFIX = "[";
-    private static final String CLASS_PREFIX = "L";
+    private static final char ARRAY_PREFIX = '[';
+    private static final char CLASS_PREFIX = 'L';
     private static final String CLASS_SUFFIX = ";";
 
     static List<String> getParameterSignatures(String descriptor) {
@@ -36,15 +36,13 @@ public class SignatureUtils {
         }
 
         List<String> parmSignatures = new ArrayList<>();
-        int sigStart = start;
         for (int i = start; i < limit; i++) {
-            if (!descriptor.startsWith(ARRAY_PREFIX, i)) {
-                if (descriptor.startsWith(CLASS_PREFIX, i)) {
-                    int semiPos = descriptor.indexOf(CLASS_SUFFIX, i + 1);
-                    parmSignatures.add(descriptor.substring(sigStart, semiPos + 1));
-                    i = semiPos;
-                }
-                sigStart = i + 1;
+            char prefix = descriptor.charAt(i);
+            if ((prefix == ARRAY_PREFIX) || (prefix == CLASS_PREFIX)) {
+                int semiPos = descriptor.indexOf(CLASS_SUFFIX, i + 1);
+                parmSignatures.add(descriptor.substring(i, i = semiPos + 1));
+            } else {
+                parmSignatures.add(descriptor.substring(i, ++i));
             }
         }
 
