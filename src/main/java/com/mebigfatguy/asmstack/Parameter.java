@@ -42,6 +42,10 @@ public class Parameter {
         return typeSignature;
     }
 
+    public void setTypeSignature(String sig) {
+        typeSignature = sig;
+    }
+
     public int getVariableSlot() {
         return variableSlot;
     }

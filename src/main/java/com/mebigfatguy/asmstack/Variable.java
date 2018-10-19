@@ -46,10 +46,6 @@ public class Variable {
         return signature;
     }
 
-    public void setSignature(String sig) {
-        signature = sig;
-    }
-
     public Label getStart() { return start; }
 
     public Label getEnd() { return end; }
