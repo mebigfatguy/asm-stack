@@ -750,6 +750,10 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             break;
 
             case Opcodes.CHECKCAST:
+                Parameter p = stack.peek(0);
+                if (p.getTypeSignature() == null) {
+                    p.setTypeSignature(type);
+                }
             break;
 
             case Opcodes.INSTANCEOF:
