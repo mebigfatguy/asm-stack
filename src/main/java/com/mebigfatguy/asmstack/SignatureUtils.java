@@ -17,6 +17,8 @@
  */
 package com.mebigfatguy.asmstack;
 
+import org.objectweb.asm.Opcodes;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,5 +54,36 @@ public class SignatureUtils {
     static String getReturnSignature(String descriptor) {
         int start = descriptor.indexOf(')') + 1;
         return descriptor.substring(start);
+    }
+
+    static String typeToSignature(int type) {
+        switch (type) {
+            case Opcodes.T_BOOLEAN:
+                return "Z";
+
+            case Opcodes.T_CHAR:
+                return "C";
+
+            case Opcodes.T_FLOAT:
+                return "F";
+
+            case Opcodes.T_DOUBLE:
+                return "D";
+
+            case Opcodes.T_BYTE:
+                return "B";
+
+            case Opcodes.T_SHORT:
+                return "S";
+
+            case Opcodes.T_INT:
+                return "I";
+
+            case Opcodes.T_LONG:
+                return "J";
+
+            default:
+                return "V";
+        }
     }
 }

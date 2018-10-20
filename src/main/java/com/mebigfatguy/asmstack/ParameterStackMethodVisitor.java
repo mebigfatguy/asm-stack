@@ -671,7 +671,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
             case Opcodes.NEWARRAY:
                 stack.pop();
-                stack.push(new Parameter(typeToSignature(opcode), null));
+                stack.push(new Parameter(SignatureUtils.typeToSignature(opcode), null));
             break;
         }
     }
@@ -1052,36 +1052,5 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitEnd() {
         super.visitEnd();
         stack = null;
-    }
-
-    private String typeToSignature(int type) {
-        switch (type) {
-            case Opcodes.T_BOOLEAN:
-                return "Z";
-
-            case Opcodes.T_CHAR:
-                return "C";
-
-            case Opcodes.T_FLOAT:
-                return "F";
-
-            case Opcodes.T_DOUBLE:
-                return "D";
-
-            case Opcodes.T_BYTE:
-                return "B";
-
-            case Opcodes.T_SHORT:
-                return "S";
-
-            case Opcodes.T_INT:
-                return "I";
-
-            case Opcodes.T_LONG:
-                return "J";
-
-            default:
-                return "V";
-        }
     }
 }
