@@ -47,4 +47,8 @@ public class ParameterStack {
         return stack.isEmpty();
     }
 
+    public String toString() {
+        return stack.toString();
+    }
+
 }
