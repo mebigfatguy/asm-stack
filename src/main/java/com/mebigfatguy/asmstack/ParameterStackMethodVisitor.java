@@ -17,10 +17,7 @@
  */
 package com.mebigfatguy.asmstack;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
@@ -34,6 +31,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     private ParameterStack stack;
     private Map<Integer, Variable> variables;
+    private Map<Label, String> handlers;
     private int methodAccess;
     private String methodName;
     private String methodDescriptor;
@@ -49,6 +47,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         super(api, methodVisitor);
 
         variables = new HashMap<>();
+        handlers = new IdentityHashMap<>();
     }
 
     public ParameterStack getStack() {
@@ -76,6 +75,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         }
         super.visitParameter(name, access);
     }
+
     @Override
     public void visitCode() {
         stack = new ParameterStack();
@@ -89,93 +89,93 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         switch (opcode) {
             case Opcodes.NOP:
-            break;
+                break;
 
             case Opcodes.ACONST_NULL:
                 stack.push(new Parameter(null, (Object) null));
-            break;
+                break;
 
             case Opcodes.ICONST_M1:
                 stack.push(new Parameter("I", Integer.valueOf(-1)));
-            break;
+                break;
 
             case Opcodes.ICONST_0:
                 stack.push(new Parameter("I", Integer.valueOf(0)));
-            break;
+                break;
 
             case Opcodes.ICONST_1:
                 stack.push(new Parameter("I", Integer.valueOf(1)));
-            break;
+                break;
 
             case Opcodes.ICONST_2:
                 stack.push(new Parameter("I", Integer.valueOf(2)));
-            break;
+                break;
 
             case Opcodes.ICONST_3:
                 stack.push(new Parameter("I", Integer.valueOf(3)));
-            break;
+                break;
 
             case Opcodes.ICONST_4:
                 stack.push(new Parameter("I", Integer.valueOf(4)));
-            break;
+                break;
 
             case Opcodes.ICONST_5:
                 stack.push(new Parameter("I", Integer.valueOf(5)));
-            break;
+                break;
 
             case Opcodes.LCONST_0:
                 stack.push(new Parameter("J", Long.valueOf(0)));
-            break;
+                break;
 
             case Opcodes.LCONST_1:
                 stack.push(new Parameter("J", Long.valueOf(1)));
-            break;
+                break;
 
             case Opcodes.FCONST_0:
                 stack.push(new Parameter("F", Float.valueOf(0)));
-            break;
+                break;
 
             case Opcodes.FCONST_1:
                 stack.push(new Parameter("F", Float.valueOf(1)));
-            break;
+                break;
 
             case Opcodes.FCONST_2:
                 stack.push(new Parameter("F", Float.valueOf(2)));
 
-            break;
+                break;
 
             case Opcodes.DCONST_0:
                 stack.push(new Parameter("D", Double.valueOf(0)));
-            break;
+                break;
 
             case Opcodes.DCONST_1:
                 stack.push(new Parameter("D", Double.valueOf(1)));
-            break;
+                break;
 
             case Opcodes.IALOAD:
                 stack.pop(2);
                 stack.push(new Parameter("[I", null));
-            break;
+                break;
 
             case Opcodes.LALOAD:
                 stack.pop(2);
                 stack.push(new Parameter("[J", null));
-            break;
+                break;
 
             case Opcodes.FALOAD:
                 stack.pop(2);
                 stack.push(new Parameter("[F", null));
-            break;
+                break;
 
             case Opcodes.DALOAD:
                 stack.pop(2);
                 stack.push(new Parameter("[D", null));
-            break;
+                break;
 
             case Opcodes.AALOAD:
                 stack.pop(2);
                 stack.push(new Parameter("[Ljava/lang/Object;", null));
-            break;
+                break;
 
             case Opcodes.BALOAD:
                 stack.pop(2);
@@ -194,48 +194,48 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
             case Opcodes.IASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.LASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.FASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.DASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.AASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.BASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.CASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.SASTORE:
                 stack.pop(3);
-            break;
+                break;
 
             case Opcodes.POP:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.POP2:
                 stack.pop(2);
-            break;
+                break;
 
             case Opcodes.DUP:
                 stack.push(stack.peek(0));
 
-            break;
+                break;
 
             case Opcodes.DUP_X1: {
                 Parameter p1 = stack.pop();
@@ -332,132 +332,132 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
                 Parameter p2 = stack.pop();
                 stack.push(p1);
                 stack.push(p2);
-            break;
+                break;
 
             case Opcodes.IADD:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LADD:
                 stack.pop(2);
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.FADD:
                 stack.pop(2);
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DADD:
                 stack.pop(2);
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.ISUB:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LSUB:
                 stack.pop(2);
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.FSUB:
                 stack.pop(2);
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DSUB:
                 stack.pop(2);
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.IMUL:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LMUL:
                 stack.pop(2);
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.FMUL:
                 stack.pop(2);
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DMUL:
                 stack.pop(2);
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.IDIV:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LDIV:
                 stack.pop(2);
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.FDIV:
                 stack.pop(2);
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DDIV:
                 stack.pop(2);
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.IREM:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LREM:
                 stack.pop(2);
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.FREM:
                 stack.pop(2);
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DREM:
                 stack.pop(2);
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.INEG:
                 stack.pop();
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LNEG:
                 stack.pop();
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.FNEG:
                 stack.pop();
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DNEG:
                 stack.pop();
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.ISHL:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.LSHL:
                 stack.pop(2);
@@ -517,7 +517,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.I2L:
                 stack.pop();
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.I2F:
                 stack.pop();
@@ -527,7 +527,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.I2D:
                 stack.pop();
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.L2I:
                 stack.pop();
@@ -537,7 +537,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.L2F:
                 stack.pop();
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.L2D:
                 stack.pop();
@@ -547,12 +547,12 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.F2I:
                 stack.pop();
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.F2L:
                 stack.pop();
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.F2D:
                 stack.pop();
@@ -562,12 +562,12 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.D2I:
                 stack.pop();
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.D2L:
                 stack.pop();
                 stack.push(new Parameter("J", null));
-            break;
+                break;
 
             case Opcodes.D2F:
                 stack.pop();
@@ -577,7 +577,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.I2B:
                 stack.pop();
                 stack.push(new Parameter("B", null));
-            break;
+                break;
 
             case Opcodes.I2C:
                 stack.pop();
@@ -586,72 +586,72 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
             case Opcodes.I2S:
                 stack.push(new Parameter("S", null));
-            break;
+                break;
 
             case Opcodes.LCMP:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.FCMPL:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.FCMPG:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.DCMPL:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.DCMPG:
                 stack.pop(2);
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.IRETURN:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.LRETURN:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.FRETURN:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.DRETURN:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.ARETURN:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.RETURN:
-            break;
+                break;
 
             case Opcodes.ARRAYLENGTH:
                 stack.pop();
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.ATHROW:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.MONITORENTER:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.MONITOREXIT:
                 stack.pop();
-            break;
+                break;
         }
     }
 
@@ -663,16 +663,16 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         switch (opcode) {
             case Opcodes.BIPUSH:
                 stack.push(new Parameter("B", Integer.valueOf(operand)));
-            break;
+                break;
 
             case Opcodes.SIPUSH:
                 stack.push(new Parameter("S", Integer.valueOf(operand)));
-            break;
+                break;
 
             case Opcodes.NEWARRAY:
                 stack.pop();
                 stack.push(new Parameter(SignatureUtils.typeToSignature(opcode), null));
-            break;
+                break;
         }
     }
 
@@ -692,11 +692,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
             case Opcodes.FLOAD:
                 stack.push(new Parameter("F", null));
-            break;
+                break;
 
             case Opcodes.DLOAD:
                 stack.push(new Parameter("D", null));
-            break;
+                break;
 
             case Opcodes.ALOAD:
                 Variable v = variables.get(var);
@@ -705,7 +705,7 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
                 } else {
                     stack.push(new Parameter(null));
                 }
-            break;
+                break;
 
             case Opcodes.ISTORE: {
                 Parameter p = stack.pop();
@@ -742,24 +742,24 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         switch (opcode) {
             case Opcodes.NEW:
                 stack.push(new Parameter(type, null));
-            break;
+                break;
 
             case Opcodes.ANEWARRAY:
                 stack.pop();
                 stack.push(new Parameter(type, null));
-            break;
+                break;
 
             case Opcodes.CHECKCAST:
                 Parameter p = stack.peek(0);
                 if (p.getTypeSignature() == null) {
                     p.setTypeSignature(type);
                 }
-            break;
+                break;
 
             case Opcodes.INSTANCEOF:
                 stack.pop();
                 stack.push(new Parameter("Z", null));
-            break;
+                break;
         }
     }
 
@@ -772,20 +772,20 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
             case Opcodes.GETSTATIC:
                 stack.pop();
                 stack.push(new Parameter(descriptor, new Field(owner, name, descriptor)));
-            break;
+                break;
 
             case Opcodes.PUTSTATIC:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.GETFIELD:
                 stack.pop();
                 stack.push(new Parameter(descriptor, new Field(owner, name, descriptor)));
-            break;
+                break;
 
             case Opcodes.PUTFIELD:
                 stack.pop(2);
-            break;
+                break;
         }
 
     }
@@ -798,16 +798,16 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         switch (opcode) {
             case Opcodes.INVOKEVIRTUAL:
-            break;
+                break;
 
             case Opcodes.INVOKESPECIAL:
-            break;
+                break;
 
             case Opcodes.INVOKESTATIC:
-            break;
+                break;
 
             case Opcodes.INVOKEINTERFACE:
-            break;
+                break;
         }
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
@@ -825,16 +825,16 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         switch (opcode) {
             case Opcodes.INVOKEVIRTUAL:
-            break;
+                break;
 
             case Opcodes.INVOKESPECIAL:
-            break;
+                break;
 
             case Opcodes.INVOKESTATIC:
-            break;
+                break;
 
             case Opcodes.INVOKEINTERFACE:
-            break;
+                break;
         }
 
         List<String> parms = SignatureUtils.getParameterSignatures(descriptor);
@@ -861,89 +861,102 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
         switch (opcode) {
             case Opcodes.IFEQ:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IFNE:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IFLT:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IFGE:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IFGT:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IFLE:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ICMPEQ:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ICMPNE:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ICMPLT:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ICMPGE:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ICMPGT:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ICMPLE:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ACMPEQ:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IF_ACMPNE:
                 stack.pop();
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.GOTO:
-            break;
+                break;
 
             case Opcodes.JSR:
                 // probably need some opaque type
                 stack.push(new Parameter("I", null));
-            break;
+                break;
 
             case Opcodes.IFNULL:
                 stack.pop();
-            break;
+                break;
 
             case Opcodes.IFNONNULL:
                 stack.pop();
-            break;
+                break;
         }
     }
 
     @Override
     public void visitLabel(Label label) {
         super.visitLabel(label);
+
+        String handlerType = handlers.remove(label);
+        if (handlerType != null) {
+            stack.push(new Parameter(handlerType, null));
+        }
+
+        Iterator<Variable> it = variables.values().iterator();
+        while (it.hasNext()) {
+            Variable v = it.next();
+            if (v.getEnd().equals(label)) {
+                it.remove();
+            }
+        }
     }
 
     @Override
@@ -1010,6 +1023,11 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     @Override
     public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
         super.visitTryCatchBlock(start, end, handler, type);
+
+        if (type == null){
+            type = "Ljava/lang/Object;";
+        }
+        handlers.put(handler, type);
     }
 
     @Override
@@ -1026,21 +1044,13 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
     @Override
     public AnnotationVisitor visitLocalVariableAnnotation(int typeRef, TypePath typePath, Label[] start, Label[] end, int[] index, String descriptor,
-            boolean visible) {
+                                                          boolean visible) {
         return super.visitLocalVariableAnnotation(typeRef, typePath, start, end, index, descriptor, visible);
     }
 
     @Override
     public void visitLineNumber(int line, Label start) {
         super.visitLineNumber(line, start);
-
-        Iterator<Variable> it = variables.values().iterator();
-        while (it.hasNext()) {
-            Variable v = it.next();
-            if (v.getEnd().equals(start)) {
-                it.remove();
-            }
-        }
     }
 
     @Override
@@ -1052,5 +1062,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     public void visitEnd() {
         super.visitEnd();
         stack = null;
+        handlers = null;
     }
 }
