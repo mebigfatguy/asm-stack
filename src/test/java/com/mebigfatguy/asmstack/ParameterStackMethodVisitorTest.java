@@ -92,6 +92,21 @@ public class ParameterStackMethodVisitorTest {
         }
     }
 
+    @Test
+    public void testTest5() throws IOException {
+
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
+
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test5", psmv), ClassReader.SKIP_FRAMES);
+        }
+    }
+
     public Object test1(int i, String s) {
         return s;
     }
@@ -112,6 +127,13 @@ public class ParameterStackMethodVisitorTest {
             s.add(x + x);
         }
         return s.get(0);
+    }
+
+    public String test5(int i, int j) {
+        int k = i & j;
+        int[][][] a = new int[i][j][k];
+
+        return a.toString();
     }
 
     public static int sm(int i) {
