@@ -17,21 +17,22 @@
  */
 package com.mebigfatguy.asmstack;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.BitSet;
-import java.util.Deque;
-import java.util.List;
-import java.util.Queue;
-
-import org.junit.*;
-import org.junit.runners.MethodSorters;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-@FixMethodOrder(MethodSorters.JVM)
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.BitSet;
+import java.util.Deque;
+import java.util.List;
+
+
 public class ParameterStackMethodVisitorTest {
 
     private static BitSet opcodes;
