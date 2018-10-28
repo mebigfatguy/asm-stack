@@ -71,13 +71,13 @@ public class OpcodeCollectingMethodVisitor extends MethodVisitor {
     @Override
     public void visitLdcInsn(Object value) {
         super.visitLdcInsn(value);
-        opcodes.set(opcode);
+        opcodes.set(Opcodes.LDC);
     }
 
     @Override
     public void visitIincInsn(int var, int increment) {
         super.visitIincInsn(var, increment);
-        opcodes.set(opcode);
+        opcodes.set(Opcodes.IINC);
     }
 
     @Override

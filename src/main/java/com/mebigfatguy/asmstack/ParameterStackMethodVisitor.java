@@ -32,36 +32,21 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     private ParameterStack stack;
     private Map<Integer, Variable> variables;
     private Map<Label, String> handlers;
-    private int methodAccess;
-    private String methodName;
-    private String methodDescriptor;
-    private String methodSignature;
-    private String[] methodExceptions;
     private int nextParmSlot;
 
-    public ParameterStackMethodVisitor(final int api) {
-        this(api, null);
+    public ParameterStackMethodVisitor(final int api, boolean isStatic) {
+        this(api, isStatic, null);
     }
 
-    public ParameterStackMethodVisitor(int api, MethodVisitor methodVisitor) {
+    public ParameterStackMethodVisitor(int api, boolean isStatic, MethodVisitor methodVisitor) {
         super(api, methodVisitor);
-
+        nextParmSlot = isStatic ? 0 : 1;
         variables = new HashMap<>();
         handlers = new IdentityHashMap<>();
     }
 
     public ParameterStack getStack() {
         return stack;
-    }
-
-    public void visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-        methodAccess = access;
-        methodName = name;
-        methodDescriptor = descriptor;
-        methodSignature = signature;
-        methodExceptions = exceptions;
-
-        nextParmSlot = (access & Opcodes.ACC_STATIC) != 0 ? 0 : 1;
     }
 
     @Override

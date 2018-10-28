@@ -19,91 +19,126 @@ package com.mebigfatguy.asmstack;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.BitSet;
 import java.util.Deque;
 import java.util.List;
 import java.util.Queue;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runners.MethodSorters;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+@FixMethodOrder(MethodSorters.JVM)
 public class ParameterStackMethodVisitorTest {
+
+    private static BitSet opcodes;
+
+    @BeforeClass
+    public static void beforeClass() {
+        opcodes = new BitSet();
+        opcodes.set(Opcodes.NOP);
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        boolean fail = false;
+        for (int i = 0; i < 256; i++) {
+            if (!opcodes.get(i)) {
+                System.out.println("Opcode: " + i + " was not tested");
+                fail = true;
+            }
+        }
+
+        if (fail) {
+            Assert.fail("Not all opcodes parsed");
+        }
+    }
 
     @Test
     public void testTest1() throws IOException {
 
-        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
             public void visitEnd() {
                 Assert.assertTrue(getStack().isEmpty());
             }
         };
 
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
-            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test1", psmv), ClassReader.SKIP_FRAMES);
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test1", ocmv), ClassReader.SKIP_FRAMES);
         }
     }
 
     @Test
     public void testTest2() throws IOException {
 
-        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
             public void visitEnd() {
                 Assert.assertTrue(getStack().isEmpty());
             }
         };
 
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
-            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test2", psmv), ClassReader.SKIP_FRAMES);
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test2", ocmv), ClassReader.SKIP_FRAMES);
         }
     }
 
     @Test
     public void testTest3() throws IOException {
 
-        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
             public void visitEnd() {
                 Assert.assertTrue(getStack().isEmpty());
             }
         };
 
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
-            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test3", psmv), ClassReader.SKIP_FRAMES);
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test3", ocmv), ClassReader.SKIP_FRAMES);
         }
     }
 
     @Test
     public void testTest4() throws IOException {
 
-        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
             public void visitEnd() {
                 Assert.assertTrue(getStack().isEmpty());
             }
         };
 
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
-            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test4", psmv), ClassReader.SKIP_FRAMES);
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test4", ocmv), ClassReader.SKIP_FRAMES);
         }
     }
 
     @Test
     public void testTest5() throws IOException {
 
-        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6) {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
             public void visitEnd() {
                 Assert.assertTrue(getStack().isEmpty());
             }
         };
 
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
         try (InputStream clsStream = ParameterStackMethodVisitorTest.class
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
-            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test5", psmv), ClassReader.SKIP_FRAMES);
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test5", ocmv), ClassReader.SKIP_FRAMES);
         }
     }
 
@@ -122,7 +157,7 @@ public class ParameterStackMethodVisitorTest {
     }
 
     public String test4(List<String> s, String x) {
-        synchronized(s) {
+        synchronized (s) {
             s.remove(x);
             s.add(x + x);
         }
@@ -153,7 +188,6 @@ public class ParameterStackMethodVisitorTest {
         @Override
         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
             if (name.equals(targetMethodName)) {
-                methodVisitor.visitMethod(access, name, descriptor, signature, exceptions);
                 return methodVisitor;
             }
 
