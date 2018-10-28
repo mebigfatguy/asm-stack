@@ -142,9 +142,9 @@ public class ParameterStackMethodVisitorTest {
 
     class MethodPickingClassVisitor extends ClassVisitor {
         private String targetMethodName;
-        private ParameterStackMethodVisitor methodVisitor;
+        private MethodVisitor methodVisitor;
 
-        public MethodPickingClassVisitor(String methodName, ParameterStackMethodVisitor mv) {
+        public MethodPickingClassVisitor(String methodName, MethodVisitor mv) {
             super(Opcodes.ASM6);
             targetMethodName = methodName;
             methodVisitor = mv;
