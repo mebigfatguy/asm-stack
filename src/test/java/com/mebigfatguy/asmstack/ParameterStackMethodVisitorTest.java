@@ -176,8 +176,8 @@ public class ParameterStackMethodVisitorTest {
         double dZero = 0.0;
         double dOne = 1.0;
         byte b = (byte) 10;
-        short s = (short) 10;
-        int r = 42;
+        short s = (short) 300;
+        int r = 70000;
 
         long l = lZero & lOne;
         float f = fZero + fOne + fTwo;
