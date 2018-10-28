@@ -58,6 +58,22 @@ public class ParameterStackMethodVisitorTest {
     }
 
     @Test
+    public void testConsts() throws Exception {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
+
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("consts", ocmv), ClassReader.SKIP_FRAMES);
+        }
+    }
+
+    @Test
     public void testTest1() throws IOException {
 
         ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
@@ -140,6 +156,33 @@ public class ParameterStackMethodVisitorTest {
                 .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test5", ocmv), ClassReader.SKIP_FRAMES);
         }
+    }
+
+    public int consts() {
+        Object oo = null;
+        int minus1 = -1;
+        int zero = 0;
+        int one = 1;
+        int two = 2;
+        int three = 3;
+        int four = 4;
+        int five = 5;
+        long lZero = 0L;
+        long lOne = 1L;
+        float fZero = 0.0f;
+        float fOne = 1.0f;
+        float fTwo = 2.0f;
+        double dZero = 0.0;
+        double dOne = 1.0;
+        byte b = (byte) 10;
+        short s = (short) 10;
+        int r = 42;
+
+        long l = lZero & lOne;
+        float f = fZero + fOne + fTwo;
+        double d = dZero + dOne;
+        oo = new Object();
+        return ((minus1 & one | zero ^ two & three & (~four) | five) > oo.hashCode()) ? (int) f : (int) l;
     }
 
     public Object test1(int i, String s) {
