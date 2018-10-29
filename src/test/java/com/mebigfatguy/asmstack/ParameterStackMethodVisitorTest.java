@@ -41,6 +41,7 @@ public class ParameterStackMethodVisitorTest {
     public static void beforeClass() {
         opcodes = new BitSet();
         opcodes.set(Opcodes.NOP);
+        opcodes.set(19); // LDC_W
     }
 
     @AfterClass
