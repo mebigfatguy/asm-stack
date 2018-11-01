@@ -97,6 +97,22 @@ public class ParameterStackMethodVisitorTest {
     }
 
     @Test
+    public void testArrays() throws Exception {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
+
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("arrays", ocmv), ClassReader.SKIP_FRAMES);
+        }
+    }
+
+    @Test
     public void testTest1() throws IOException {
 
         ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
@@ -180,6 +196,15 @@ public class ParameterStackMethodVisitorTest {
             new ClassReader(clsStream).accept(new MethodPickingClassVisitor("test5", ocmv), ClassReader.SKIP_FRAMES);
         }
     }
+
+    public void arrays() {
+        int[] ia = new int[] { 0, 1, 2, 3, 4};
+        ia[0] = ia[1] + ia[2] + ia[3] + ia[4] + ia[5];
+        long[] la = new long[] { 0, 1, 2, 3, 4};
+        la[0] = la[1] + la[2] + la[3] + la[4] + la[5];
+    }
+
+
 
     public int consts() {
         Object oo = null;
