@@ -43,6 +43,26 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(Opcodes.NOP);
         opcodes.set(19); // LDC_W
         opcodes.set(20); // LDC2_W
+        opcodes.set(26); // ILOAD_0
+        opcodes.set(27); // ILOAD_1
+        opcodes.set(28); // ILOAD_2
+        opcodes.set(29); // ILOAD_3
+        opcodes.set(30); // LLOAD_0
+        opcodes.set(31); // LLOAD_1
+        opcodes.set(32); // LLOAD_2
+        opcodes.set(33); // LLOAD_3
+        opcodes.set(34); // FLOAD_0
+        opcodes.set(35); // FLOAD_1
+        opcodes.set(36); // FLOAD_2
+        opcodes.set(37); // FLOAD_3
+        opcodes.set(38); // DLOAD_0
+        opcodes.set(39); // DLOAD_1
+        opcodes.set(40); // DLOAD_2
+        opcodes.set(41); // DLOAD_3
+        opcodes.set(42); // ALOAD_0
+        opcodes.set(43); // ALOAD_1
+        opcodes.set(44); // ALOAD_2
+        opcodes.set(45); // ALOAD_3
     }
 
     @AfterClass
