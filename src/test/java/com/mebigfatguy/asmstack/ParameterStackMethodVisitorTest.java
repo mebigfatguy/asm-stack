@@ -202,6 +202,11 @@ public class ParameterStackMethodVisitorTest {
         ia[0] = ia[1] + ia[2] + ia[3] + ia[4] + ia[5];
         long[] la = new long[] { 0, 1, 2, 3, 4};
         la[0] = la[1] + la[2] + la[3] + la[4] + la[5];
+        float[] fa = new float[] { 0, 1, 2, 3, 4};
+        fa[0] = fa[1] + fa[2] + fa[3] + fa[4] + fa[5];
+        double[] da = new double[] { 0, 1, 2, 3, 4};
+        da[0] = da[1] + da[2] + da[3] + da[4] + da[5];
+
     }
 
 
