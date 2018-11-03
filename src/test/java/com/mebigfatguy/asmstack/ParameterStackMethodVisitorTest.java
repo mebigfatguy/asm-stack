@@ -199,13 +199,21 @@ public class ParameterStackMethodVisitorTest {
 
     public void arrays() {
         int[] ia = new int[] { 0, 1, 2, 3, 4};
-        ia[0] = ia[1] + ia[2] + ia[3] + ia[4] + ia[5];
+        ia[0] = ia[1] + ia[2] + ia[3] + ia[4];
         long[] la = new long[] { 0, 1, 2, 3, 4};
-        la[0] = la[1] + la[2] + la[3] + la[4] + la[5];
+        la[0] = la[1] + la[2] + la[3] + la[4];
         float[] fa = new float[] { 0, 1, 2, 3, 4};
-        fa[0] = fa[1] + fa[2] + fa[3] + fa[4] + fa[5];
+        fa[0] = fa[1] + fa[2] + fa[3] + fa[4];
         double[] da = new double[] { 0, 1, 2, 3, 4};
-        da[0] = da[1] + da[2] + da[3] + da[4] + da[5];
+        da[0] = da[1] + da[2] + da[3] + da[4];
+        String[] oa = new String[] { "Hi", "Hello", "Howdy"};
+        oa[0] = oa[1] + oa[2];
+        byte[] ba = new byte[] { 0, 1, 2, 3, 4};
+        ba[0] = (byte) (ba[1] + ba[2] + ba[3] + ba[4]);
+        short[] sa = new short[] { 0, 1, 2, 3, 4};
+        sa[0] = (short) (sa[1] + sa[2] + sa[3] + sa[4]);
+
+
 
     }
 
