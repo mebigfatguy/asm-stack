@@ -212,6 +212,8 @@ public class ParameterStackMethodVisitorTest {
         ba[0] = (byte) (ba[1] + ba[2] + ba[3] + ba[4]);
         short[] sa = new short[] { 0, 1, 2, 3, 4};
         sa[0] = (short) (sa[1] + sa[2] + sa[3] + sa[4]);
+        char[] ca = new char[] { '0', '1', '2', '3', '4'};
+        ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
 
 
