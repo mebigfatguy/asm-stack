@@ -63,6 +63,10 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(43); // ALOAD_1
         opcodes.set(44); // ALOAD_2
         opcodes.set(45); // ALOAD_3
+        opcodes.set(59); // ISTORE_0
+        opcodes.set(60); // ISTORE_1
+        opcodes.set(61); // ISTORE_2
+        opcodes.set(62); // ISTORE_3
     }
 
     @AfterClass
