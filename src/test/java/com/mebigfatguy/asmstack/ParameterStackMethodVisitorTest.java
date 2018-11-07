@@ -79,6 +79,10 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(72); // DSTORE_1
         opcodes.set(73); // DSTORE_2
         opcodes.set(74); // DSTORE_3
+        opcodes.set(75); // ASTORE_0
+        opcodes.set(76); // ASTORE_1
+        opcodes.set(77); // ASTORE_2
+        opcodes.set(78); // ASTORE_3
     }
 
     @AfterClass
