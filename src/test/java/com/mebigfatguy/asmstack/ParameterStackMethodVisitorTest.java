@@ -278,7 +278,7 @@ public class ParameterStackMethodVisitorTest {
         }
     }
 
-    public int test3(int i, int j) {
+    public long test3(int i, int j) {
         return sm(i) | sm(j);
     }
 
@@ -286,6 +286,7 @@ public class ParameterStackMethodVisitorTest {
         synchronized (s) {
             s.remove(x);
             s.add(x + x);
+            test3(0, 0);
         }
         return s.get(0);
     }
