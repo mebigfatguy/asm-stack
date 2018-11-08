@@ -83,6 +83,9 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(76); // ASTORE_1
         opcodes.set(77); // ASTORE_2
         opcodes.set(78); // ASTORE_3
+
+        opcodes.set(90); // DUP_X1 -- it's not clear if this opcode is used by javac
+        opcodes.set(91); // DUP_X2 -- it's not clear if this opcode is used by javac
     }
 
     @AfterClass
