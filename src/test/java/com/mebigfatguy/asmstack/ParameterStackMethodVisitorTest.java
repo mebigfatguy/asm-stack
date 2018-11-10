@@ -43,7 +43,7 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(Opcodes.NOP);
         opcodes.set(19); // LDC_W
         opcodes.set(20); // LDC2_W
-        opcodes.set(26); // ILOAD_0
+        opcodes.set(26); // ILOAD_0  -- asm will never supply the _X version of the opcode so ignore all of them
         opcodes.set(27); // ILOAD_1
         opcodes.set(28); // ILOAD_2
         opcodes.set(29); // ILOAD_3
