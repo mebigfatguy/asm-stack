@@ -84,8 +84,12 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(77); // ASTORE_2
         opcodes.set(78); // ASTORE_3
 
-        opcodes.set(90); // DUP_X1 -- it's not clear if this opcode is used by javac
-        opcodes.set(91); // DUP_X2 -- it's not clear if this opcode is used by javac
+        opcodes.set(90); // DUP_X1    -- it's not clear if this opcode is used by javac
+        opcodes.set(91); // DUP_X2    -- it's not clear if this opcode is used by javac
+        opcodes.set(92); // DUP2      -- it's not clear if this opcode is used by javac
+        opcodes.set(93); // DUP2_X1   -- it's not clear if this opcode is used by javac
+        opcodes.set(94); // DUP2_X2   -- it's not clear if this opcode is used by javac
+        opcodes.set(95); // SWAP      -- it's not clear if this opcode is used by javac
     }
 
     @AfterClass
@@ -238,8 +242,6 @@ public class ParameterStackMethodVisitorTest {
         char[] ca = new char[] { '0', '1', '2', '3', '4'};
         ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
-
-
     }
 
 
@@ -268,11 +270,20 @@ public class ParameterStackMethodVisitorTest {
         float f = fZero + fOne + fTwo;
         double d = dZero + dOne;
         oo = new Object();
+
+        double z = (one - two) + (lZero - lOne) - (fZero - fOne) * (dZero - dOne);
+        double y = (one * two) / (lZero * lOne) + (fZero * fOne) - (dZero * dOne);
+        double x = (one / two) - (fZero / fOne) / (dZero / dOne);
+
         return ((minus1 & one | zero ^ two & three & (~four) | five) > oo.hashCode()) ? (int) f : (int) l;
     }
 
     public Object test1(int i, String s) {
         return s;
+    }
+
+    public long choose(long l1, long l2) {
+        return l1 == 0 ? l1 : choose(l2, l2);
     }
 
     public void test2(List<String> in, Deque<String> out) {
