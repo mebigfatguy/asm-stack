@@ -43,7 +43,7 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(Opcodes.NOP);
         opcodes.set(19); // LDC_W
         opcodes.set(20); // LDC2_W
-        opcodes.set(26); // ILOAD_0  -- asm will never supply the _X version of the opcode so ignore all of them
+        opcodes.set(26); // ILOAD_0    -- asm will never supply the _X version of the opcode so ignore all of them
         opcodes.set(27); // ILOAD_1
         opcodes.set(28); // ILOAD_2
         opcodes.set(29); // ILOAD_3
@@ -84,12 +84,21 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(77); // ASTORE_2
         opcodes.set(78); // ASTORE_3
 
-        opcodes.set(90); // DUP_X1    -- it's not clear if this opcode is used by javac
-        opcodes.set(91); // DUP_X2    -- it's not clear if this opcode is used by javac
-        opcodes.set(92); // DUP2      -- it's not clear if this opcode is used by javac
-        opcodes.set(93); // DUP2_X1   -- it's not clear if this opcode is used by javac
-        opcodes.set(94); // DUP2_X2   -- it's not clear if this opcode is used by javac
-        opcodes.set(95); // SWAP      -- it's not clear if this opcode is used by javac
+        opcodes.set(90); // DUP_X1      -- it's not clear if this opcode is used by javac
+        opcodes.set(91); // DUP_X2      -- it's not clear if this opcode is used by javac
+        opcodes.set(92); // DUP2        -- it's not clear if this opcode is used by javac
+        opcodes.set(93); // DUP2_X1     -- it's not clear if this opcode is used by javac
+        opcodes.set(94); // DUP2_X2     -- it's not clear if this opcode is used by javac
+        opcodes.set(95); // SWAP        -- it's not clear if this opcode is used by javac
+
+        opcodes.set(168); // JSR        -- javac doesn't emit this anymore
+        opcodes.set(201); // JSR_W      -- javac doesn't emit this anymore
+        opcodes.set(202); // BREAKPOINT -- javac doesn't emit this
+
+        opcodes.set(203, 254); // UNIMPLEMENTED
+
+        opcodes.set(254); // IMPLDEP1   -- javac doesn't emit this
+        opcodes.set(255); // IMPLDEP2   -- javac doesn't emit this
     }
 
     @AfterClass
