@@ -285,6 +285,9 @@ public class ParameterStackMethodVisitorTest {
         double x = (one / two) - (fZero / fOne) / (dZero / dOne);
         double w = (-one % two) + (-lZero % lOne) + (-fZero % fOne) + (-dZero % dOne);
 
+        long v = (one >> two) << (lZero >> lOne) >>> (one << two) >> (lZero << lOne);
+        v = (v >>> 3) | (v ^ 2);
+
         return ((minus1 & one | zero ^ two & three & (~four) | five) > oo.hashCode()) ? (int) f : (int) l;
     }
 
