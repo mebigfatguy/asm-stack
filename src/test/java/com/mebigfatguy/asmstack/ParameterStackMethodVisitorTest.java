@@ -287,8 +287,10 @@ public class ParameterStackMethodVisitorTest {
         double w = (-one % two) + (-lZero % ((long) dOne)) + (-fZero % ((float) dOne)) + (-dZero % dOne);
 
         long v = (one >> two) << (lZero >> lOne) >>> (one << two) >> (lZero << lOne);
-        v = ((big > one) || (fZero > fOne) || (dZero > dOne)) ? (v >>> 3) | (v ^ 2) : 1;
+        v = ((big > one) || (fZero > fOne) || (fZero < fOne) || (dZero > dOne)|| (dZero < dOne)) ? (v >>> 3) | (v ^ 2) : 1;
 
+
+        boolean q = one != two && one > two && one < two && one == two && one <= two && one >= two && ((one&two)==0);
         return ((minus1 & one | zero ^ two & three & (~four) | five++) > oo.hashCode()) ? (int) f : (int) l;
     }
 
