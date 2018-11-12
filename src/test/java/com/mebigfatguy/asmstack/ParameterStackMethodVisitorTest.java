@@ -266,6 +266,7 @@ public class ParameterStackMethodVisitorTest {
         int five = 5;
         long lZero = 0L;
         long lOne = 1L;
+        long big = Long.MAX_VALUE;
         float fZero = 0.0f;
         float fOne = 1.0f;
         float fTwo = 2.0f;
@@ -286,7 +287,7 @@ public class ParameterStackMethodVisitorTest {
         double w = (-one % two) + (-lZero % ((long) dOne)) + (-fZero % ((float) dOne)) + (-dZero % dOne);
 
         long v = (one >> two) << (lZero >> lOne) >>> (one << two) >> (lZero << lOne);
-        v = (v >>> 3) | (v ^ 2);
+        v = ((big > one) || (fZero > fOne) || (dZero > dOne)) ? (v >>> 3) | (v ^ 2) : 1;
 
         return ((minus1 & one | zero ^ two & three & (~four) | five++) > oo.hashCode()) ? (int) f : (int) l;
     }
