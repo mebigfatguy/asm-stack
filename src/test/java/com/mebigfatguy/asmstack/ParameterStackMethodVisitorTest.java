@@ -280,15 +280,15 @@ public class ParameterStackMethodVisitorTest {
         double d = dZero + dOne;
         oo = new Object();
 
-        double z = (one - two) + (lZero - lOne) - (fZero - fOne) * (dZero - dOne);
-        double y = (one * two) / (lZero * lOne) + (fZero * fOne) - (dZero * dOne);
+        double z = (one - ((int) dOne)) + (lZero - lOne) - (fZero - fOne) * (dZero - dOne);
+        double y = (one * two) / (lZero * ((long) fOne)) + (fZero * ((float) one)) - (dZero * dOne);
         double x = (one / two) - (fZero / fOne) / (dZero / dOne);
-        double w = (-one % two) + (-lZero % lOne) + (-fZero % fOne) + (-dZero % dOne);
+        double w = (-one % two) + (-lZero % ((long) dOne)) + (-fZero % ((float) dOne)) + (-dZero % dOne);
 
         long v = (one >> two) << (lZero >> lOne) >>> (one << two) >> (lZero << lOne);
         v = (v >>> 3) | (v ^ 2);
 
-        return ((minus1 & one | zero ^ two & three & (~four) | five) > oo.hashCode()) ? (int) f : (int) l;
+        return ((minus1 & one | zero ^ two & three & (~four) | five++) > oo.hashCode()) ? (int) f : (int) l;
     }
 
     public Object test1(int i, String s) {
