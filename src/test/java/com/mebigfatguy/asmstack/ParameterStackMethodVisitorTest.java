@@ -133,6 +133,22 @@ public class ParameterStackMethodVisitorTest {
     }
 
     @Test
+    public void testSwitches() throws Exception {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
+
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("switches", ocmv), ClassReader.SKIP_FRAMES);
+        }
+    }
+
+    @Test
     public void testArrays() throws Exception {
         ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
             public void visitEnd() {
@@ -234,25 +250,24 @@ public class ParameterStackMethodVisitorTest {
     }
 
     public void arrays() {
-        int[] ia = new int[] { 0, 1, 2, 3, 4};
+        int[] ia = new int[]{0, 1, 2, 3, 4};
         ia[0] = ia[1] + ia[2] + ia[3] + ia[4];
-        long[] la = new long[] { 0, 1, 2, 3, 4};
+        long[] la = new long[]{0, 1, 2, 3, 4};
         la[0] = la[1] + la[2] + la[3] + la[4];
-        float[] fa = new float[] { 0, 1, 2, 3, 4};
+        float[] fa = new float[]{0, 1, 2, 3, 4};
         fa[0] = fa[1] + fa[2] + fa[3] + fa[4];
-        double[] da = new double[] { 0, 1, 2, 3, 4};
+        double[] da = new double[]{0, 1, 2, 3, 4};
         da[0] = da[1] + da[2] + da[3] + da[4];
-        String[] oa = new String[] { "Hi", "Hello", "Howdy"};
+        String[] oa = new String[]{"Hi", "Hello", "Howdy"};
         oa[0] = oa[1] + oa[2];
-        byte[] ba = new byte[] { 0, 1, 2, 3, 4};
+        byte[] ba = new byte[]{0, 1, 2, 3, 4};
         ba[0] = (byte) (ba[1] + ba[2] + ba[3] + ba[4]);
-        short[] sa = new short[] { 0, 1, 2, 3, 4};
+        short[] sa = new short[]{0, 1, 2, 3, 4};
         sa[0] = (short) (sa[1] + sa[2] + sa[3] + sa[4]);
-        char[] ca = new char[] { '0', '1', '2', '3', '4'};
+        char[] ca = new char[]{'0', '1', '2', '3', '4'};
         ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
     }
-
 
 
     public int consts() {
@@ -287,11 +302,53 @@ public class ParameterStackMethodVisitorTest {
         double w = (-one % two) + (-lZero % ((long) dOne)) + (-fZero % ((float) dOne)) + (-dZero % dOne);
 
         long v = (one >> two) << (lZero >> lOne) >>> (one << two) >> (lZero << lOne);
-        v = ((big > one) || (fZero > fOne) || (fZero < fOne) || (dZero > dOne)|| (dZero < dOne)) ? (v >>> 3) | (v ^ 2) : 1;
+        v = ((big > one) || (fZero > fOne) || (fZero < fOne) || (dZero > dOne) || (dZero < dOne)) ? (v >>> 3) | (v ^ 2) : 1;
 
 
-        boolean q = one != two && one > two && one < two && one == two && one <= two && one >= two && ((one&two)==0);
+        boolean q = one != two && one > two && one < two && one == two && one <= two && one >= two && ((one & two) == 0);
         return ((minus1 & one | zero ^ two & three & (~four) | five++) > oo.hashCode()) ? (int) f : (int) l;
+    }
+
+    public boolean switches(int i, String s) {
+        switch (s) {
+            case "fee":
+                switch (i) {
+                    case 0:
+                        return false;
+                    case 1:
+                        return true;
+                }
+                break;
+
+            case "fi":
+                switch (i) {
+                    case 2:
+                        return false;
+                    case 3:
+                        return true;
+                }
+                break;
+
+            case "fo":
+                switch (i) {
+                    case 4:
+                        return false;
+                    case 5:
+                        return true;
+                }
+                break;
+
+            case "fum":
+                switch (i) {
+                    case 6:
+                        return false;
+                    case 7:
+                        return true;
+                }
+                break;
+        }
+
+        return false;
     }
 
     public Object test1(int i, String s) {
