@@ -37,6 +37,9 @@ public class ParameterStackMethodVisitorTest {
 
     private static BitSet opcodes;
 
+    private static String staticField;
+    private String instanceField;
+
     @BeforeClass
     public static void beforeClass() {
         opcodes = new BitSet();
@@ -165,6 +168,22 @@ public class ParameterStackMethodVisitorTest {
     }
 
     @Test
+    public void testFields() throws Exception {
+        ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
+            public void visitEnd() {
+                Assert.assertTrue(getStack().isEmpty());
+            }
+        };
+
+        OpcodeCollectingMethodVisitor ocmv = new OpcodeCollectingMethodVisitor(psmv, opcodes);
+
+        try (InputStream clsStream = ParameterStackMethodVisitorTest.class
+                .getResourceAsStream("/" + ParameterStackMethodVisitorTest.class.getName().replace('.', '/') + ".class")) {
+            new ClassReader(clsStream).accept(new MethodPickingClassVisitor("fields", ocmv), ClassReader.SKIP_FRAMES);
+        }
+    }
+
+    @Test
     public void testTest1() throws IOException {
 
         ParameterStackMethodVisitor psmv = new ParameterStackMethodVisitor(Opcodes.ASM6, false) {
@@ -269,6 +288,12 @@ public class ParameterStackMethodVisitorTest {
 
         ia[0] = ia.length;
 
+    }
+
+    public boolean fields(String s, String t) {
+        staticField = s;
+        instanceField = t;
+        return staticField.equals(instanceField);
     }
 
 
