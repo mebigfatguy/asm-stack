@@ -267,6 +267,8 @@ public class ParameterStackMethodVisitorTest {
         char[] ca = new char[]{'0', '1', '2', '3', '4'};
         ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
+        ia[0] = ia.length;
+
     }
 
 
