@@ -95,6 +95,7 @@ public class ParameterStackMethodVisitorTest {
         opcodes.set(95); // SWAP        -- it's not clear if this opcode is used by javac
 
         opcodes.set(168); // JSR        -- javac doesn't emit this anymore
+        opcodes.set(200); // GOTO_W     -- asm will never supply the _X version of the opcode so ignore all of them
         opcodes.set(201); // JSR_W      -- javac doesn't emit this anymore
         opcodes.set(202); // BREAKPOINT -- javac doesn't emit this
 
