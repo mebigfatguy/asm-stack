@@ -330,56 +330,62 @@ public class ParameterStackMethodVisitorTest {
         double w = (-one % two) + (-lZero % ((long) dOne)) + (-fZero % ((float) dOne)) + (-dZero % dOne);
 
         long v = (one >> two) << (lZero >> lOne) >>> (one << two) >> (lZero << lOne);
-        v = ((big > one) || (fZero > fOne) || (fZero < fOne) || (dZero > dOne) || (dZero < dOne)) ? (v >>> 3) | (v ^ 2) : 1;
-
+        if ("foo" == oo) {
+            v = ((big > one) || (fZero > fOne) || (fZero < fOne) || (dZero > dOne) || (dZero < dOne)) ? (v >>> 3) | (v ^ 2) : 1;
+        }
 
         boolean q = one != two && one > two && one < two && one == two && one <= two && one >= two && ((one & two) == 0);
         return ((minus1 & one | zero ^ two & three & (~four) | five++) > oo.hashCode()) ? (int) f : (int) l;
     }
 
     public boolean switches(int i, String s) {
-        switch (s) {
-            case "fee":
-                switch (i) {
-                    case 0:
-                        return false;
-                    case 1:
-                        return true;
-                }
-                break;
+        if ("foo" != s) {
+            switch (s) {
+                case "fee":
+                    switch (i) {
+                        case 0:
+                            return false;
+                        case 1:
+                            return true;
+                    }
+                    break;
 
-            case "fi":
-                switch (i) {
-                    case 2:
-                        return false;
-                    case 3:
-                        return true;
-                }
-                break;
+                case "fi":
+                    switch (i) {
+                        case 2:
+                            return false;
+                        case 3:
+                            return true;
+                    }
+                    break;
 
-            case "fo":
-                switch (i) {
-                    case 4:
-                        return false;
-                    case 5:
-                        return true;
-                }
-                break;
+                case "fo":
+                    switch (i) {
+                        case 4:
+                            return false;
+                        case 5:
+                            return true;
+                    }
+                    break;
 
-            case "fum":
-                switch (i) {
-                    case 6:
-                        return false;
-                    case 7:
-                        return true;
-                }
-                break;
+                case "fum":
+                    switch (i) {
+                        case 6:
+                            return false;
+                        case 7:
+                            return true;
+                    }
+                    break;
+            }
         }
 
         return false;
     }
 
     public Object test1(int i, String s) {
+        if (s == null) {
+            return i;
+        }
         return s;
     }
 
@@ -389,7 +395,9 @@ public class ParameterStackMethodVisitorTest {
 
     public void test2(List<String> in, Deque<String> out) {
         for (String s : in) {
-            out.addLast(s);
+            if (!"huh".equals(s)) {
+                out.addLast(s);
+            }
         }
     }
 
@@ -401,7 +409,9 @@ public class ParameterStackMethodVisitorTest {
         synchronized (s) {
             s.remove(x);
             s.add(x + x);
-            test3(0, 0);
+            if (s.equals(s.get(0))) {
+                test3(0, 0);
+            }
         }
         return s.get(0);
     }
