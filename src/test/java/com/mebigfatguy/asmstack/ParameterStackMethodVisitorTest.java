@@ -270,7 +270,7 @@ public class ParameterStackMethodVisitorTest {
         }
     }
 
-    public void arrays() {
+    public float arrays() {
         int[] ia = new int[]{0, 1, 2, 3, 4};
         ia[0] = ia[1] + ia[2] + ia[3] + ia[4];
         long[] la = new long[]{0, 1, 2, 3, 4};
@@ -289,6 +289,7 @@ public class ParameterStackMethodVisitorTest {
         ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
         ia[0] = ia.length;
+        return fa[0] + ia.length;
 
     }
 
@@ -394,12 +395,14 @@ public class ParameterStackMethodVisitorTest {
         return l1 == 0 ? l1 : choose(l2, l2);
     }
 
-    public void test2(List<String> in, Deque<String> out) {
+    public double test2(List<String> in, Deque<String> out) {
         for (String s : in) {
             if (!"huh".equals(s)) {
                 out.addLast(s);
             }
         }
+        
+        return Double.valueOf(in.get(0)) / Double.valueOf(out.getFirst());
     }
 
     public long test3(int i, int j) {
