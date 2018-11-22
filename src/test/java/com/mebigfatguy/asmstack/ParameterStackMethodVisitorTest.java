@@ -288,15 +288,26 @@ public class ParameterStackMethodVisitorTest {
         char[] ca = new char[]{'0', '1', '2', '3', '4'};
         ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
-        ia[0] = ia.length;
+        if (oa[0] instanceof String) {
+        	ia[0] = ia.length;
+        }
         return fa[0] + ia.length;
 
     }
 
-    public boolean fields(String s, String t) {
+    public void fields(String s, String t) {
         staticField = s;
         instanceField = t;
-        return staticField.equals(instanceField);
+        if (staticField.equals(instanceField)) {
+        	return;
+        }
+        
+        s = instanceField;
+        t = staticField;
+        
+        if (s.compareTo(t) > 0) {
+        	return;
+        }
     }
 
 
