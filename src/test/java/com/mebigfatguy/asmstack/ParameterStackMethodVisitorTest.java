@@ -288,7 +288,7 @@ public class ParameterStackMethodVisitorTest {
         char[] ca = new char[]{'0', '1', '2', '3', '4'};
         ca[0] = (char) (ca[1] + ca[2] + ca[3] + ca[4]);
 
-        if (oa[0] instanceof String) {
+        if (oa != null && oa[0] instanceof String) {
         	ia[0] = ia.length;
         }
         return fa[0] + ia.length;
