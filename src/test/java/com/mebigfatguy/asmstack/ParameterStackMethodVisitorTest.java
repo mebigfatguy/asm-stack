@@ -31,6 +31,8 @@ import java.io.InputStream;
 import java.util.BitSet;
 import java.util.Deque;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 public class ParameterStackMethodVisitorTest {
@@ -413,6 +415,8 @@ public class ParameterStackMethodVisitorTest {
                 out.addLast(s);
             }
         }
+
+        out.addAll(in.stream().map(String::toLowerCase).collect(Collectors.toList()));
         
         return Double.valueOf(in.get(0)) / Double.valueOf(out.getFirst());
     }
