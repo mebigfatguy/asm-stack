@@ -833,9 +833,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
     @Override
     public void visitInvokeDynamicInsn(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {
         super.visitInvokeDynamicInsn(name, descriptor, bootstrapMethodHandle, bootstrapMethodArguments);
-
-        stack.pop(4);
-        // need to pop more args
     }
 
     @Override
