@@ -755,7 +755,6 @@ public class ParameterStackMethodVisitor extends MethodVisitor {
 
         switch (opcode) {
             case Opcodes.GETSTATIC:
-                stack.pop();
                 stack.push(new Parameter(descriptor, new Field(owner, name, descriptor)));
                 break;
 
